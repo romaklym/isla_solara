@@ -1,9 +1,22 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taxhavistan/home_page.dart';
 import 'package:taxhavistan/screens/map_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    // Replace with actual values
+    options: FirebaseOptions(
+        apiKey: "AIzaSyAHHPBGEbeRFhu4qP-jw7X1rkikassN9-Q",
+        authDomain: "taxhavistan.firebaseapp.com",
+        databaseURL: "https://taxhavistan-default-rtdb.firebaseio.com",
+        projectId: "taxhavistan",
+        storageBucket: "taxhavistan.firebasestorage.app",
+        messagingSenderId: "176859126239",
+        appId: "1:176859126239:web:61b7b60d9be9892d0a8c6a"),
+  );
   runApp(const MyApp());
 }
 

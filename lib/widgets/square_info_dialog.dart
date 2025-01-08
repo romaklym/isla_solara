@@ -1,8 +1,7 @@
-import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'custom_button.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class SquareInfoDialog extends StatefulWidget {
   final int squareNumber;
@@ -35,19 +34,25 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
 
   Future<void> _loadIslandName() async {
     try {
-      // Load the JSON file
-      final String response =
-          await rootBundle.loadString('assets/island_names.json');
-      final List<dynamic> islandNames = json.decode(response);
+      // Fetch the document from the Firestore collection 'islands'
+      final doc = await FirebaseFirestore.instance
+          .collection('islands')
+          .doc((widget.squareNumber - 1).toString()) // Document ID is the index
+          .get();
 
-      setState(() {
-        // Fetch the name corresponding to the squareNumber
-        _islandName = islandNames[widget.squareNumber - 1];
-      });
+      if (doc.exists) {
+        setState(() {
+          _islandName = doc.data()?['name'] ?? 'Unknown Island';
+        });
+      } else {
+        setState(() {
+          _islandName = "Unknown Island";
+        });
+      }
     } catch (e) {
-      print("Error loading island names: $e");
+      print("Error fetching island name from Firestore: $e");
       setState(() {
-        _islandName = "Unknown Island"; // Fallback in case of an error
+        _islandName = "Unknown Island";
       });
     }
   }
