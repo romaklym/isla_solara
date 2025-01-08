@@ -24,7 +24,10 @@ class SquareInfoDialog extends StatefulWidget {
 }
 
 class _SquareInfoDialogState extends State<SquareInfoDialog> {
-  String? _islandName;
+  String? islandName;
+  double? islandPrice;
+  int? timesBought;
+  String? owner;
 
   @override
   void initState() {
@@ -42,17 +45,24 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
 
       if (doc.exists) {
         setState(() {
-          _islandName = doc.data()?['name'] ?? 'Unknown Island';
+          islandName = doc.data()?['name'] ?? 'Unknown Island';
+          islandPrice = doc.data()?['price'] ?? 0.0;
+          // owner = doc.data()?['owner'] ?? 'Unknown Owner';
+          timesBought = doc.data()?['times_bought'] ?? 0;
         });
       } else {
         setState(() {
-          _islandName = "Unknown Island";
+          islandName = "Unknown Island";
+          islandPrice = 0.0;
+          timesBought = 0;
         });
       }
     } catch (e) {
       print("Error fetching island name from Firestore: $e");
       setState(() {
-        _islandName = "Unknown Island";
+        islandName = "Unknown Island";
+        islandPrice = 0.0;
+        timesBought = 0;
       });
     }
   }
@@ -119,7 +129,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                         Padding(
                           padding: const EdgeInsets.only(left: 16.0),
                           child: Text(
-                            _islandName ?? "Loading...",
+                            islandName ?? "Loading...",
                             style: const TextStyle(
                               fontFamily: "Audiowide",
                               fontSize: 14.0,
@@ -190,9 +200,9 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                               ),
                               const SizedBox(height: 16),
                               CustomButton(
-                                color: const Color(0xFFFFC978),
-                                label: 'Close',
-                                icon: Icons.close,
+                                color: const Color(0xFF21c21c),
+                                label: islandPrice.toString(),
+                                icon: Icons.attach_money,
                                 onTap: () {
                                   Navigator.of(context).pop();
                                 },
