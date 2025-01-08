@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:taxhavistan/dialogs/tokenomics.dart';
 import 'package:taxhavistan/dialogs/how_to_play.dart';
+import 'package:taxhavistan/dialogs/unauthorized_dialog.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
 import 'package:taxhavistan/widgets/square_info_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,6 +39,25 @@ class _MapScreenState extends State<MapScreen> {
     showDialog(
       context: context,
       builder: (_) => dialog,
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Show the dialog if publicKey is empty
+    if (widget.publicKey.isEmpty || widget.publicKey == 'Unknown') {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showUnauthorizedDialog();
+      });
+    }
+  }
+
+  void _showUnauthorizedDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const UnauthorizedDialog(),
     );
   }
 
@@ -143,7 +163,7 @@ class _MapScreenState extends State<MapScreen> {
               color: Color(0xFF51ACC2),
               onTap: () {},
               svgPath: "assets/Phantom.svg",
-              label: widget.publicKey,
+              label: widget.publicKey.isNotEmpty ? widget.publicKey : 'No Key',
               maxCharacters: 14,
             ),
           ),
