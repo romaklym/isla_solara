@@ -41,7 +41,7 @@ class MobileScreen extends StatelessWidget {
                           CustomButton(
                             icon: FontAwesomeIcons.xTwitter,
                             iconSize: 12.0,
-                            color: const Color(0xFF2AB7E3),
+                            color: const Color(0xFF01b7e6),
                             onTap: () async {
                               const url = "https://x.com/taxhavistan";
                               if (await canLaunchUrl(Uri.parse(url))) {
@@ -56,7 +56,7 @@ class MobileScreen extends StatelessWidget {
                           CustomButton(
                             icon: FontAwesomeIcons.telegram,
                             iconSize: 12.0,
-                            color: const Color(0xFF2AB7E3),
+                            color: const Color(0xFF01b7e6),
                             onTap: () async {
                               const url = "https://t.me/taxhavistan";
                               if (await canLaunchUrl(Uri.parse(url))) {
@@ -71,7 +71,7 @@ class MobileScreen extends StatelessWidget {
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        "Taxhavistan",
+                        "Isla Solara",
                         style: const TextStyle(
                           fontFamily: "Nabla",
                           fontWeight: FontWeight.w900,
@@ -84,7 +84,7 @@ class MobileScreen extends StatelessWidget {
                       child: CustomButton(
                         label: "How to Play?",
                         fontSize: 10.0,
-                        color: const Color(0xFF582b84),
+                        color: const Color(0xFFa134f6),
                         onTap: () async {
                           const url = "https://x.com/taxhavistan";
                           if (await canLaunchUrl(Uri.parse(url))) {
@@ -118,7 +118,7 @@ class MobileScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 16),
                     decoration: BoxDecoration(
-                      color: Color(0xFF2ab7e3), // Use determined button color
+                      color: Color(0xFFf4683d), // Use determined button color
                       border: Border.all(color: Colors.black54, width: 1.5),
                       borderRadius: BorderRadius.circular(4),
                     ),
@@ -132,13 +132,13 @@ class MobileScreen extends StatelessWidget {
                             fontFamily: "Audiowide",
                             fontSize: 16.0,
                             fontWeight: FontWeight.normal,
-                            color: Colors.white,
+                            color: Colors.white70,
                           ),
                         ),
                         const SizedBox(height: 8.0),
                         CustomButton(
                           label: "Learn More",
-                          color: Colors.amber,
+                          color: Color(0xFFf9943b),
                           onTap: () {},
                         )
                       ],

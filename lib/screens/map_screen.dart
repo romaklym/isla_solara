@@ -133,22 +133,11 @@ class _MapScreenState extends State<MapScreen> {
                   const Tokenomics(),
                 ),
               ),
-              SizedBox(
-                width: 16.0,
-              ),
-              CustomButton(
-                icon: FontAwesomeIcons.chartLine,
-                label: "Stats",
-                color: const Color(0xFF7ACDDA),
-                onTap: () => _openDialog(
-                  const HowToPlay(),
-                ),
-              )
             ],
           ),
         ),
         title: Text(
-          "Taxhavistan",
+          "Isla Solara",
           style: const TextStyle(
             fontFamily: "Nabla",
             fontWeight: FontWeight.w900,
@@ -159,12 +148,32 @@ class _MapScreenState extends State<MapScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
-            child: CustomButton(
-              color: Color(0xFF51ACC2),
-              onTap: () {},
-              svgPath: "assets/Phantom.svg",
-              label: widget.publicKey.isNotEmpty ? widget.publicKey : 'No Key',
-              maxCharacters: 14,
+            child: SizedBox(
+              width: 300,
+              child: Row(
+                children: [
+                  CustomButton(
+                    icon: FontAwesomeIcons.chartLine,
+                    label: "Stats",
+                    color: const Color(0xFF7ACDDA),
+                    onTap: () => _openDialog(
+                      const HowToPlay(),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 16.0,
+                  ),
+                  CustomButton(
+                    color: Color(0xFF51ACC2),
+                    onTap: () {},
+                    svgPath: "assets/Phantom.svg",
+                    label: widget.publicKey.isNotEmpty
+                        ? widget.publicKey
+                        : 'No Key',
+                    maxCharacters: 14,
+                  ),
+                ],
+              ),
             ),
           ),
         ],

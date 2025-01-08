@@ -14,7 +14,7 @@ class _HowToPlayState extends State<HowToPlay> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.7;
+    final width = MediaQuery.of(context).size.width * 0.55;
     final height = MediaQuery.of(context).size.height * 0.8;
 
     return Dialog(

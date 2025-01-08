@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
 
@@ -77,15 +76,6 @@ class UnauthorizedDialog extends StatelessWidget {
                               color: Color(0xFF704214),
                             ),
                           ),
-                        ),
-                        const Spacer(),
-                        IconButton(
-                          icon: const FaIcon(
-                            FontAwesomeIcons.x,
-                            color: Colors.redAccent,
-                          ),
-                          onPressed: () => Navigator.of(context).pop(),
-                          iconSize: 14.0,
                         ),
                       ],
                     ),
