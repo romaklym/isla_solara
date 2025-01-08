@@ -7,7 +7,7 @@ class GlobeWidget extends StatefulWidget {
   final double zoomIn;
   const GlobeWidget({
     super.key,
-    this.zoomIn = 11.5,
+    this.zoomIn = 13,
   });
 
   @override
