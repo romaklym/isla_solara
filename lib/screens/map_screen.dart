@@ -155,99 +155,107 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF86b9e1),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF86b9e1),
-        leadingWidth: 600,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: Row(
-            children: [
-              CustomButton(
-                icon: FontAwesomeIcons.gamepad,
-                label: "How to Play?",
-                color: const Color(0xFF679a7d),
-                onTap: () => _openDialog(
-                  const HowToPlay(),
-                ),
-              ),
-              const SizedBox(width: 16.0),
-              CustomButton(
-                icon: FontAwesomeIcons.coins,
-                label: "Tokenomics",
-                color: const Color(0xFFaebc6e),
-                onTap: () => _openDialog(
-                  const Tokenomics(),
-                ),
-              ),
-            ],
-          ),
-        ),
-        title: const Text(
-          "Isla Solara",
-          style: TextStyle(
-            fontFamily: "Nabla",
-            fontWeight: FontWeight.w900,
-            fontSize: 32,
-          ),
-        ),
-        centerTitle: true,
+        backgroundColor: const Color(0xFF564e95),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomButton(
-                  icon: FontAwesomeIcons.chartLine,
-                  label: "Stats",
-                  color: const Color(0xFFf8c3b6),
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        width: 300,
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: const Color(0xFF86b9e1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          side:
-                              const BorderSide(color: Colors.black54, width: 2),
-                        ),
-                        content: Container(
-                          alignment: Alignment.center,
-                          child: const Text(
-                            "Statistics are coming soon! Stay tuned.",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: "Audiowide",
-                              color: Colors.black54,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Row(
+                    children: [
+                      CustomButton(
+                        icon: FontAwesomeIcons.gamepad,
+                        label: "How to Play?",
+                        color: const Color(0xFF679a7d),
+                        onTap: () => _openDialog(
+                          const HowToPlay(),
                         ),
                       ),
-                    );
-                  },
-                ),
-                if (_publicKey.isNotEmpty && _publicKey != "Unknown") ...[
-                  const SizedBox(width: 16.0),
-                  CustomButton(
-                    color: const Color(0xFF666A75),
-                    onTap: () {},
-                    icon: Icons.attach_money,
-                    label: _tokenBalance.toStringAsFixed(2),
+                      const SizedBox(width: 16.0),
+                      CustomButton(
+                        icon: FontAwesomeIcons.coins,
+                        label: "Tokenomics",
+                        color: const Color(0xFFaebc6e),
+                        onTap: () => _openDialog(
+                          const Tokenomics(),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-                const SizedBox(width: 16.0),
-                CustomButton(
-                  color: const Color(0xFFAB9FF2),
-                  onTap: _publicKey.isEmpty || _publicKey == "Unknown"
-                      ? connectWallet
-                      : logout,
-                  svgPath: "assets/Phantom.svg",
-                  label: _publicKey.isEmpty || _publicKey == "Unknown"
-                      ? 'Connect Wallet'
-                      : _publicKey,
-                  maxCharacters:
-                      _publicKey.isEmpty || _publicKey == "Unknown" ? null : 8,
+                ),
+                const Text(
+                  "Isla Solara",
+                  style: TextStyle(
+                    fontFamily: "Nabla",
+                    fontWeight: FontWeight.w900,
+                    fontSize: 32,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: Row(
+                    children: [
+                      CustomButton(
+                        icon: FontAwesomeIcons.chartLine,
+                        label: "Stats",
+                        color: const Color(0xFFf8c3b6),
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              width: 300,
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: const Color(0xFF86b9e1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                side: const BorderSide(
+                                    color: Colors.black54, width: 2),
+                              ),
+                              content: Container(
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  "Statistics are coming soon! Stay tuned.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: "Audiowide",
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      if (_publicKey.isNotEmpty && _publicKey != "Unknown") ...[
+                        const SizedBox(width: 16.0),
+                        CustomButton(
+                          color: const Color(0xFF666A75),
+                          onTap: () {},
+                          icon: Icons.attach_money,
+                          label: _tokenBalance.toStringAsFixed(2),
+                        ),
+                      ],
+                      const SizedBox(width: 16.0),
+                      CustomButton(
+                        color: const Color(0xFFAB9FF2),
+                        onTap: _publicKey.isEmpty || _publicKey == "Unknown"
+                            ? connectWallet
+                            : logout,
+                        svgPath: "assets/Phantom.svg",
+                        label: _publicKey.isEmpty || _publicKey == "Unknown"
+                            ? 'Connect Wallet'
+                            : _publicKey,
+                        maxCharacters:
+                            _publicKey.isEmpty || _publicKey == "Unknown"
+                                ? null
+                                : 8,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
