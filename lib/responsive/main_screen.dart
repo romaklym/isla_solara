@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taxhavistan/screens/globe_widget.dart';
 import 'package:taxhavistan/widgets/app_bar.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
-import 'package:taxhavistan/widgets/footer.dart';
 import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatefulWidget {
@@ -18,14 +16,47 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Interactive Globe
-          Center(
-            child: GlobeWidget(
-              zoomIn: 12.5,
+          Positioned.fill(
+            child: Image.asset(
+              'assets/back.png',
+              fit: BoxFit.cover, // Cover entire container
             ),
           ),
+          // Transparent Grid Overlay
+          Positioned.fill(
+            child: CustomPaint(
+              painter: _RetroGridPainter(), // Paint the grid
+            ),
+          ),
+          Positioned(
+            top: 0, // Place at the top of the screen
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 8.0,
+              ),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Isla Solara",
+                      style: const TextStyle(
+                        fontFamily: "Nabla",
+                        fontWeight: FontWeight.w900,
+                        fontSize: 36.0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
           CustomAppBar(),
-          Footer(),
           Align(
             alignment: Alignment.center,
             child: Column(
@@ -34,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
                 CustomButton(
                   icon: Icons.map_rounded,
                   color: const Color(0xFF269b4b),
-                  label: "View Map",
+                  label: "Claim Land",
                   onTap: () {
                     context.go('/map');
                   },
@@ -48,4 +79,25 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
+}
+
+class _RetroGridPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.black.withAlpha(25)
+      ..strokeWidth = 0.5;
+
+    const gridSpacing = 15.0;
+
+    for (double x = 0; x <= size.width; x += gridSpacing) {
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
+    }
+    for (double y = 0; y <= size.height; y += gridSpacing) {
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

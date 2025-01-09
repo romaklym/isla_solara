@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:taxhavistan/dialogs/how_to_play_dialog.dart';
 import 'package:taxhavistan/dialogs/tokenomics_dialog.dart';
-import 'package:taxhavistan/widgets/app_bar_buttons.dart';
+import 'package:taxhavistan/widgets/buy_button.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomAppBar extends StatefulWidget {
   const CustomAppBar({super.key});
@@ -23,7 +24,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: 0, // Place at the top of the screen
+      bottom: 0, // Place at the top of the screen
       left: 0,
       right: 0,
       child: Padding(
@@ -32,51 +33,121 @@ class _CustomAppBarState extends State<CustomAppBar> {
           vertical: 8.0,
         ),
         child: Stack(
-          alignment: Alignment.center,
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 16.0,
-                  ),
-                  CustomButton(
-                    icon: FontAwesomeIcons.gamepad,
-                    label: "How to Play?",
-                    color: const Color(0xFF679a7d),
-                    onTap: () => _openDialog(
-                      const HowToPlay(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    BuyButton(
+                      onTap: () async {
+                        const url =
+                            "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol";
+                        if (await canLaunchUrl(Uri.parse(url))) {
+                          await launchUrl(Uri.parse(url),
+                              mode: LaunchMode.externalApplication);
+                        }
+                      },
                     ),
-                  ),
-                  SizedBox(
-                    width: 16.0,
-                  ),
-                  CustomButton(
-                    icon: FontAwesomeIcons.coins,
-                    label: "Tokenomics",
-                    color: const Color(0xFFaebc6e),
-                    onTap: () => _openDialog(
-                      const Tokenomics(),
+                    SizedBox(
+                      width: 16.0,
                     ),
-                  )
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Text(
-                "Isla Solara",
-                style: const TextStyle(
-                  fontFamily: "Nabla",
-                  fontWeight: FontWeight.w900,
-                  fontSize: 32,
+                    CustomButton(
+                      icon: FontAwesomeIcons.gamepad,
+                      label: "How to Play?",
+                      color: const Color(0xFF679a7d),
+                      onTap: () => _openDialog(
+                        const HowToPlay(),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 16.0,
+                    ),
+                    CustomButton(
+                      icon: FontAwesomeIcons.coins,
+                      label: "Tokenomics",
+                      color: const Color(0xFFaebc6e),
+                      onTap: () => _openDialog(
+                        const Tokenomics(),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 16.0,
+                    ),
+                    CustomButton(
+                      color: Color(0xFFe85229),
+                      onTap: () {},
+                      label: "About",
+                      icon: Icons.people,
+                    ),
+                  ],
                 ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: AppBarButtons(),
+                Row(
+                  children: [
+                    CustomButton(
+                      svgPath: 'assets/dex.svg',
+                      label: 'DexScreener',
+                      color: const Color(0xFFf8c3b6),
+                      onTap: () async {
+                        const url =
+                            "https://dexscreener.com/solana/ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY";
+
+                        if (await canLaunchUrl(Uri.parse(url))) {
+                          await launchUrl(Uri.parse(url),
+                              mode: LaunchMode.externalApplication);
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      width: 16.0,
+                    ),
+                    CustomButton(
+                      svgPath: 'assets/dextools.svg',
+                      label: 'DexTools',
+                      color: const Color(0xFF666A75),
+                      onTap: () async {
+                        const url =
+                            "https://dexscreener.com/solana/ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY";
+
+                        if (await canLaunchUrl(Uri.parse(url))) {
+                          await launchUrl(Uri.parse(url),
+                              mode: LaunchMode.externalApplication);
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      width: 16.0,
+                    ),
+                    CustomButton(
+                      icon: FontAwesomeIcons.xTwitter,
+                      iconSize: 16.0,
+                      color: const Color(0xFF718DAC),
+                      onTap: () async {
+                        const url = "https://x.com/taxhavistan";
+                        if (await canLaunchUrl(Uri.parse(url))) {
+                          await launchUrl(Uri.parse(url),
+                              mode: LaunchMode.externalApplication);
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      width: 16.0,
+                    ),
+                    CustomButton(
+                      icon: FontAwesomeIcons.telegram,
+                      iconSize: 16.0,
+                      color: const Color(0xFF86aed1),
+                      onTap: () async {
+                        const url = "https://t.me/taxhavistan";
+                        if (await canLaunchUrl(Uri.parse(url))) {
+                          await launchUrl(Uri.parse(url),
+                              mode: LaunchMode.externalApplication);
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ],
             )
           ],
         ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:taxhavistan/screens/globe_widget.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
 import 'package:taxhavistan/widgets/buy_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,12 +14,6 @@ class MobileScreen extends StatelessWidget {
         backgroundColor: Colors.black,
         body: Stack(
           children: [
-            // Interactive Globe
-            Center(
-              child: GlobeWidget(
-                zoomIn: 16.0,
-              ),
-            ),
             // App Bar
             Positioned(
               top: 0, // Place at the top of the screen
