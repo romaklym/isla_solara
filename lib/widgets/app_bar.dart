@@ -44,7 +44,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   CustomButton(
                     icon: FontAwesomeIcons.gamepad,
                     label: "How to Play?",
-                    color: const Color(0xFF51ACC2),
+                    color: const Color(0xFF679a7d),
                     onTap: () => _openDialog(
                       const HowToPlay(),
                     ),
@@ -55,7 +55,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   CustomButton(
                     icon: FontAwesomeIcons.coins,
                     label: "Tokenomics",
-                    color: const Color(0xFF7ACDDA),
+                    color: const Color(0xFFaebc6e),
                     onTap: () => _openDialog(
                       const Tokenomics(),
                     ),

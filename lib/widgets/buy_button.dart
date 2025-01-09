@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class StartButton extends StatelessWidget {
+class BuyButton extends StatelessWidget {
   final VoidCallback onTap; // Pass a custom function for onTap
   final double iconSize;
   final double fontSize;
   final double sizedBoxSize;
 
-  const StartButton({
+  const BuyButton({
     super.key,
     required this.onTap, // Require onTap function
-    this.iconSize = 16.0, // Default icon size
-    this.fontSize = 14.0, // Default font size
+    this.iconSize = 20.0, // Default icon size
+    this.fontSize = 18.0, // Default font size
     this.sizedBoxSize = 8.0, // Default spacing size
   });
 
@@ -31,12 +31,15 @@ class StartButton extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap, // Use the passed function
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 8),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                const Color(0xFF76b852), // Start color
-                const Color(0xFF8DC26F), // End color
+                const Color(0xFFA2EEF2), // Start color
+                const Color(0xFF7ACDDA),
+                const Color(0xFF51ACC2),
+                const Color(0xFF298AAA),
+                const Color(0xFF006992),
               ],
               begin: Alignment.topLeft, // Start position of the gradient
               end: Alignment.bottomRight, // End position of the gradient

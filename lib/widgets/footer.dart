@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taxhavistan/widgets/start_button.dart';
+import 'package:taxhavistan/widgets/buy_button.dart';
+import 'package:taxhavistan/widgets/custom_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Footer extends StatelessWidget {
@@ -17,10 +18,10 @@ class Footer extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: const EdgeInsets.only(
-                left: 16.0,
-                bottom: 16.0,
+                left: 32.0,
+                bottom: 32.0,
               ),
-              child: StartButton(
+              child: BuyButton(
                 onTap: () async {
                   const url =
                       "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol";
@@ -33,17 +34,17 @@ class Footer extends StatelessWidget {
             ),
           ),
           Align(
-            alignment: Alignment.center,
-            child: Text(
-              "© 2025. All rights reserved!",
-              style: const TextStyle(
-                fontFamily: "Audiowide",
-                fontSize: 12.0,
-                color: Color(0xFF80A8FF),
-                fontWeight: FontWeight.bold,
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 32.0),
+              child: CustomButton(
+                color: Color(0xFFe85229),
+                onTap: () {},
+                label: "About",
+                icon: Icons.people,
               ),
             ),
-          ),
+          )
         ],
       ),
     );

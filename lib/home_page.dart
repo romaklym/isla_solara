@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taxhavistan/responsive/map_toggle_screen.dart';
+import 'package:taxhavistan/responsive/main_screen.dart';
 import 'package:taxhavistan/responsive/mobile_screen.dart';
 import 'package:taxhavistan/responsive/responsive_layout.dart';
 
@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: ResponsiveLayout(
         mobileBody: MobileScreen(),
-        desktopBody: MapToggleScreen(),
+        desktopBody: MainScreen(),
       ),
     );
   }

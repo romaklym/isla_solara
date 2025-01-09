@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:taxhavistan/screens/globe_widget.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
-import 'package:taxhavistan/widgets/start_button.dart';
+import 'package:taxhavistan/widgets/buy_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MobileScreen extends StatelessWidget {
@@ -162,7 +162,7 @@ class MobileScreen extends StatelessWidget {
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: StartButton(
+                      child: BuyButton(
                         onTap: () async {
                           const url =
                               "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol";

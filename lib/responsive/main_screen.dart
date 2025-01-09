@@ -6,14 +6,14 @@ import 'package:taxhavistan/widgets/custom_button.dart';
 import 'package:taxhavistan/widgets/footer.dart';
 import 'package:go_router/go_router.dart';
 
-class MapToggleScreen extends StatefulWidget {
-  const MapToggleScreen({super.key});
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
   @override
-  State<MapToggleScreen> createState() => _MapToggleScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MapToggleScreenState extends State<MapToggleScreen> {
+class _MainScreenState extends State<MainScreen> {
   final WalletService _walletService = WalletService();
 
   String _status = "Not connected";
@@ -59,7 +59,7 @@ class _MapToggleScreenState extends State<MapToggleScreen> {
           // Interactive Globe
           Center(
             child: GlobeWidget(
-              zoomIn: 11.5,
+              zoomIn: 12.5,
             ),
           ),
           CustomAppBar(),

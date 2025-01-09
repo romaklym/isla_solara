@@ -9,7 +9,7 @@ class GlobeWidget extends StatefulWidget {
   final double zoomIn;
   const GlobeWidget({
     super.key,
-    this.zoomIn = 11.5,
+    this.zoomIn = 12.5,
   });
 
   @override
@@ -37,23 +37,6 @@ class GlobeWidgetState extends State<GlobeWidget>
     return completer.future;
   }
 
-  Future<ui.Image> createSolidColorTexture(Color color,
-      {int size = 256}) async {
-    final recorder = ui.PictureRecorder();
-    final canvas = Canvas(recorder);
-    final paint = Paint()..color = color;
-
-    // Draw a circle filled with the color
-    canvas.drawCircle(
-      Offset(size / 2, size / 2),
-      size / 2,
-      paint,
-    );
-
-    final picture = recorder.endRecording();
-    return picture.toImage(size, size);
-  }
-
   @override
   void initState() {
     super.initState();
@@ -67,7 +50,7 @@ class GlobeWidgetState extends State<GlobeWidget>
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       earthTexture = await loadTexture('assets/4096_earth.jpg');
       nightTexture = await loadTexture('assets/4096_night_lights.jpg');
-      starsTexture = await loadTexture('assets/2k_stars_milky_way.jpg');
+      starsTexture = await loadTexture('assets/8k_stars_milky_way.jpg');
 
       setState(() {
         _texturesLoaded = true;

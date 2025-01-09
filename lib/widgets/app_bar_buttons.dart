@@ -24,7 +24,7 @@ class AppBarButtons extends StatelessWidget {
           CustomButton(
               svgPath: 'assets/dex.svg',
               label: 'DexScreener',
-              color: const Color(0xFF298AAA),
+              color: const Color(0xFFf8c3b6),
               onTap: () => _launchUrl(
                   "https://dexscreener.com/solana/ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY")),
           SizedBox(
@@ -33,7 +33,7 @@ class AppBarButtons extends StatelessWidget {
           CustomButton(
             svgPath: 'assets/dextools.svg',
             label: 'DexTools',
-            color: const Color(0xFF006992),
+            color: const Color(0xFF666A75),
             onTap: () => _launchUrl(
                 "https://dexscreener.com/solana/ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY"),
           ),
@@ -43,7 +43,7 @@ class AppBarButtons extends StatelessWidget {
           CustomButton(
             icon: FontAwesomeIcons.xTwitter,
             iconSize: 16.0,
-            color: const Color(0xFF006992),
+            color: const Color(0xFF718DAC),
             onTap: () async {
               const url = "https://x.com/taxhavistan";
               if (await canLaunchUrl(Uri.parse(url))) {
@@ -58,7 +58,7 @@ class AppBarButtons extends StatelessWidget {
           CustomButton(
             icon: FontAwesomeIcons.telegram,
             iconSize: 16.0,
-            color: const Color(0xFF298AAA),
+            color: const Color(0xFF86aed1),
             onTap: () async {
               const url = "https://t.me/taxhavistan";
               if (await canLaunchUrl(Uri.parse(url))) {
