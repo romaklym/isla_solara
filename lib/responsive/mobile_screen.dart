@@ -105,7 +105,7 @@ class MobileScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(8),
                     boxShadow: [
                       BoxShadow(
                         color: const Color(0xFF704214),
@@ -120,7 +120,7 @@ class MobileScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Color(0xFFf4683d), // Use determined button color
                       border: Border.all(color: Colors.black54, width: 1.5),
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,

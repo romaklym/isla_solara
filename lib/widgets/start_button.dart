@@ -19,7 +19,7 @@ class StartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF704214), // Shadow color
@@ -35,24 +35,24 @@ class StartButton extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                const Color(0xFFADFAFF), // Start color
-                const Color(0xFF80A8FF), // End color
+                const Color(0xFF76b852), // Start color
+                const Color(0xFF8DC26F), // End color
               ],
-              begin: Alignment.centerLeft, // Start position of the gradient
-              end: Alignment.centerRight, // End position of the gradient
+              begin: Alignment.topLeft, // Start position of the gradient
+              end: Alignment.bottomRight, // End position of the gradient
             ),
             border: Border.all(
-              color: const Color(0xFF704214),
+              color: Colors.black54,
               width: 1.5,
             ),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               FaIcon(
                 FontAwesomeIcons.dollarSign,
-                color: Colors.black54,
+                color: Colors.white70,
                 size: iconSize, // Use customizable icon size
               ),
               SizedBox(width: sizedBoxSize), // Use customizable spacing
@@ -61,7 +61,7 @@ class StartButton extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: "Audiowide",
                   fontSize: fontSize, // Use customizable font size
-                  color: Colors.black54,
+                  color: Colors.white70,
                   fontWeight: FontWeight.bold,
                 ),
               ),

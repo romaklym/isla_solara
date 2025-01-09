@@ -149,7 +149,6 @@ class _MapScreenState extends State<MapScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: SizedBox(
-              width: 300,
               child: Row(
                 children: [
                   CustomButton(
@@ -165,6 +164,15 @@ class _MapScreenState extends State<MapScreen> {
                   ),
                   CustomButton(
                     color: Color(0xFF51ACC2),
+                    onTap: () {},
+                    icon: Icons.attach_money,
+                    label: widget.tokenBalance.toStringAsFixed(2),
+                  ),
+                  SizedBox(
+                    width: 16.0,
+                  ),
+                  CustomButton(
+                    color: Color(0xFFAB9FF2),
                     onTap: () {},
                     svgPath: "assets/Phantom.svg",
                     label: widget.publicKey.isNotEmpty

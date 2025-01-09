@@ -45,7 +45,7 @@ class SvgButtonWithText extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         decoration: BoxDecoration(
           color: buttonColor,
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: const Color(0xFF704214),
             width: 2.0,

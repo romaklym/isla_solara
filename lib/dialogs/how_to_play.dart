@@ -24,7 +24,7 @@ class _HowToPlayState extends State<HowToPlay> {
         height: height,
         decoration: BoxDecoration(
           color: const Color(0xFF86b9e1), // Blue passport color
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: const Color(0xFF704214), // Retro brown color
             width: 2.0,
@@ -38,7 +38,7 @@ class _HowToPlayState extends State<HowToPlay> {
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
           child: Stack(
             children: [
               Column(

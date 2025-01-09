@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:taxhavistan/screens/globe_widget.dart';
 import 'package:taxhavistan/services/wallet_services.dart';
 import 'package:taxhavistan/widgets/app_bar.dart';
@@ -77,23 +78,22 @@ class _MapToggleScreenState extends State<MapToggleScreen> {
               children: [
                 if (_status != "Connected!") // Show status if not connected
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Text(
                       _status == "Not connected"
-                          ? "You need to connect to your wallet first."
+                          ? "Claim your land to earn free \$TAX!"
                           : _status,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        fontSize: 18,
-                        fontFamily: "Audiowide",
-                        color: Colors.white70,
-                      ),
+                          fontSize: 26.0,
+                          fontFamily: "Audiowide",
+                          color: Colors.amber,
+                          fontWeight: FontWeight.w900),
                     ),
                   ),
-                const SizedBox(height: 20),
                 CustomButton(
                   svgPath: "assets/Phantom.svg",
-                  color: const Color(0xFF86b9e1),
+                  color: const Color(0xFFAB9FF2),
                   label: _status == "Connecting..."
                       ? 'Connecting...'
                       : 'Connect Wallet',

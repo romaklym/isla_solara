@@ -79,7 +79,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
         height: height,
         decoration: BoxDecoration(
           color: Colors.transparent,
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: const Color(0xFF704214),
             width: 2.0,
@@ -93,7 +93,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
           child: Stack(
             children: [
               Positioned.fill(
@@ -115,7 +115,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                     decoration: BoxDecoration(
                       color: const Color(0xFFFFC978), // Retro yellow-orange
                       borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(4),
+                        top: Radius.circular(8),
                       ),
                       border: const Border(
                         bottom: BorderSide(

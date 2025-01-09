@@ -33,7 +33,7 @@ class CopyTextWidget extends StatelessWidget {
             behavior: SnackBarBehavior.floating,
             backgroundColor: const Color(0xFF51ACC2), // Styling
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(8),
               side: const BorderSide(color: Colors.black54, width: 2),
             ),
             content: const Text(
@@ -53,7 +53,7 @@ class CopyTextWidget extends StatelessWidget {
         width: contWidth,
         decoration: BoxDecoration(
           color: const Color(0xFF51ACC2),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: const Color(0xFF704214),
             width: 2.0,

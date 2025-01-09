@@ -46,7 +46,7 @@ class CustomButton extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF704214), // Shadow color
@@ -62,7 +62,7 @@ class CustomButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: buttonColor, // Use determined button color
             border: Border.all(color: Colors.black54, width: 1.5),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,

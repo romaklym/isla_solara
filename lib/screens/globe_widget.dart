@@ -99,7 +99,6 @@ class _GlobeWidgetState extends State<GlobeWidget>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Cube(onSceneCreated: _onSceneCreated),
     );
   }
