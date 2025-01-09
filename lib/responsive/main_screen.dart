@@ -59,20 +59,15 @@ class _MainScreenState extends State<MainScreen> {
           CustomAppBar(),
           Align(
             alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomButton(
-                  icon: Icons.map_rounded,
-                  color: const Color(0xFF269b4b),
-                  label: "Claim Land",
-                  onTap: () {
-                    context.go('/map');
-                  },
-                  fontSize: 16.0,
-                  iconSize: 20.0,
-                ),
-              ],
+            child: CustomButton(
+              icon: Icons.map_rounded,
+              color: const Color(0xFF269b4b),
+              label: "Claim Land",
+              onTap: () {
+                context.go('/map');
+              },
+              fontSize: 16.0,
+              iconSize: 20.0,
             ),
           ),
         ],

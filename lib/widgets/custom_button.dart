@@ -68,6 +68,7 @@ class CustomButton extends StatelessWidget {
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Display SVG if provided
               if (svgPath != null)
@@ -102,6 +103,7 @@ class CustomButton extends StatelessWidget {
                     color: Colors.white70,
                     fontWeight: FontWeight.bold,
                   ),
+                  textAlign: TextAlign.center,
                 ),
             ],
           ),

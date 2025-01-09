@@ -1,1 +1,1 @@
-const mobileWidth = 1000;
+const mobileWidth = 1300;

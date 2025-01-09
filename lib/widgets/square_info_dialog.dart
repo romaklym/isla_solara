@@ -124,39 +124,23 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                         ),
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 16.0),
-                          child: Text(
-                            islandName ?? "Loading...",
-                            style: const TextStyle(
-                              fontFamily: "Audiowide",
-                              fontSize: 18.0,
-                              color: Color(0xFF704214),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16.0),
+                            child: Text(
+                              islandName ?? "Loading...",
+                              style: const TextStyle(
+                                fontFamily: "Audiowide",
+                                fontSize: 18.0,
+                                color: Color(0xFF704214),
+                              ),
                             ),
                           ),
-                        ),
-                        const Spacer(),
-                        IconButton(
-                          icon: const FaIcon(
-                            FontAwesomeIcons.x,
-                            color: Colors.redAccent,
-                          ),
-                          onPressed: () => Navigator.of(context).pop(),
-                          iconSize: 14.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Content Area
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          Row(
                             children: [
                               Text(
                                 "Lot #${widget.squareNumber}",
@@ -164,32 +148,58 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                                 style: const TextStyle(
                                   fontFamily: "Audiowide",
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.black54,
+                                  fontSize: 14.0,
+                                  color: Color(0xFF704214),
                                 ),
                               ),
-                              const SizedBox(height: 16),
-                              Text(
-                                "Coordinates: ${widget.row.toStringAsFixed(2)}, ${widget.col.toStringAsFixed(2)}",
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black54,
-                                    fontFamily: "Audiowide"),
-                              ),
-                              const SizedBox(height: 16),
-                              CustomButton(
-                                color: const Color(0xFF21c21c),
-                                label: islandPrice.toString(),
-                                icon: Icons.attach_money,
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                },
-                                fontSize: 16.0,
-                                iconSize: 20.0,
+                              IconButton(
+                                icon: const FaIcon(
+                                  FontAwesomeIcons.x,
+                                  color: Colors.redAccent,
+                                ),
+                                onPressed: () => Navigator.of(context).pop(),
+                                iconSize: 14.0,
                               ),
                             ],
                           ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  // Content Area
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Coordinates: ${widget.row.toStringAsFixed(2)}, ${widget.col.toStringAsFixed(2)}",
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black54,
+                                  fontFamily: "Audiowide"),
+                            ),
+                          ],
                         ),
+                        Positioned(
+                          right: 0,
+                          left: 0,
+                          bottom: 0,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: CustomButton(
+                              color: const Color(0xFF21c21c),
+                              label: islandPrice.toString(),
+                              icon: Icons.attach_money,
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              fontSize: 16.0,
+                              iconSize: 20.0,
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),

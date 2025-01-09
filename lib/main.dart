@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taxhavistan/home_page.dart';
+import 'package:taxhavistan/responsive/mobile_screen.dart';
+import 'package:taxhavistan/responsive/responsive_layout.dart';
 import 'package:taxhavistan/screens/map_screen.dart';
 
 void main() async {
@@ -34,10 +36,12 @@ class MyApp extends StatelessWidget {
         ),
         GoRoute(
           path: '/map',
-          builder: (context, state) =>
-              // Ensure state.extra is a Map and extract values
-
-              const MapScreen(),
+          builder: (context, state) {
+            return ResponsiveLayout(
+              mobileBody: MobileScreen(),
+              desktopBody: MapScreen(),
+            );
+          },
         ),
       ],
     );
