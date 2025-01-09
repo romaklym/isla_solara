@@ -155,7 +155,7 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF86b9e1),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFf8c3b6),
+        backgroundColor: const Color(0xFF805D91),
         actions: [
           SizedBox(
             width: MediaQuery.of(context).size.width,

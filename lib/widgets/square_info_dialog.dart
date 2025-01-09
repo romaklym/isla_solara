@@ -40,7 +40,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
       // Fetch the document from the Firestore collection 'islands'
       final doc = await FirebaseFirestore.instance
           .collection('islands')
-          .doc((widget.squareNumber - 1).toString()) // Document ID is the index
+          .doc((widget.squareNumber).toString()) // Document ID is the index
           .get();
 
       if (doc.exists) {
@@ -64,6 +64,84 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
         islandPrice = 0.0;
         timesBought = 0;
       });
+    }
+  }
+
+  Future<void> _handleIslandPurchase() async {
+    final messenger = ScaffoldMessenger.of(context); // Create local reference
+    final price = islandPrice ?? 0.0;
+
+    if (widget.walletBalance >= price) {
+      final docId = widget.squareNumber.toString();
+
+      try {
+        // Perform the Firestore update
+        await FirebaseFirestore.instance
+            .collection('islands')
+            .doc(docId)
+            .update({
+          'owners': FieldValue.arrayUnion([widget.publicKey]),
+          'times_bought': FieldValue.increment(1),
+        });
+
+        // Show success snack bar
+        if (mounted) {
+          messenger.showSnackBar(
+            SnackBar(
+              width: 300,
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: const Color(0xFF86b9e1),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+                side: const BorderSide(color: Colors.black54, width: 2),
+              ),
+              content: const Text(
+                "Congratulations! You now own this island.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: "Audiowide",
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          );
+        }
+
+        // Close the dialog safely
+        if (mounted) {
+          Navigator.of(context)
+              .pop(); // Ensure mounted before calling Navigator
+        }
+      } catch (error) {
+        // Check if widget is still mounted before showing error
+        if (mounted) {
+          messenger.showSnackBar(
+            SnackBar(
+              content: Text("Error: $error"),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
+        }
+      }
+    } else {
+      // Insufficient funds warning
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Insufficient funds to purchase!",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: "Audiowide",
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
+          backgroundColor: Colors.orangeAccent,
+        ),
+      );
     }
   }
 
@@ -192,8 +270,8 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                               color: const Color(0xFF21c21c),
                               label: islandPrice.toString(),
                               icon: Icons.attach_money,
-                              onTap: () {
-                                Navigator.of(context).pop();
+                              onTap: () async {
+                                _handleIslandPurchase();
                               },
                               fontSize: 16.0,
                               iconSize: 20.0,
