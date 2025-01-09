@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:taxhavistan/screens/globe_widget.dart';
 import 'package:taxhavistan/services/wallet_services.dart';
 import 'package:taxhavistan/widgets/app_bar.dart';
@@ -19,7 +18,6 @@ class _MapToggleScreenState extends State<MapToggleScreen> {
 
   String _status = "Not connected";
   String _publicKey = "";
-  double _solBalance = 0.0;
   double _tokenBalance = 0.0;
 
   Future<void> connectWallet() async {
@@ -31,7 +29,6 @@ class _MapToggleScreenState extends State<MapToggleScreen> {
       String mintAddress = "ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY";
       // Attempt to connect the wallet
       final publicKey = await _walletService.connectWallet();
-      final solBalance = await _walletService.getSolBalance(publicKey);
       final tokenBalance =
           await _walletService.getTokenBalance(publicKey, mintAddress);
 
@@ -39,21 +36,17 @@ class _MapToggleScreenState extends State<MapToggleScreen> {
       if (!mounted) return; // Safeguard against widget unmounting
       setState(() {
         _publicKey = publicKey;
-        _solBalance = solBalance;
         _tokenBalance = tokenBalance;
         _status = "Connected!";
       });
 
-      context.go('/map',
-          extra: {'publicKey': _publicKey, 'tokenBalance': tokenBalance});
-
-      print("Public Key: $_publicKey");
-      print("Sol Balance: $_solBalance");
-      print("Moo Deng Balance: $_tokenBalance");
+      if (mounted) {
+        context.go('/map',
+            extra: {'publicKey': _publicKey, 'tokenBalance': _tokenBalance});
+      }
     } catch (e) {
-      if (!mounted) return; // Safeguard against widget unmounting
       setState(() {
-        _status = "You don't have Phantom wallet installed!";
+        _status = "Failed to connect. Please try again.";
       });
     }
   }
@@ -66,7 +59,7 @@ class _MapToggleScreenState extends State<MapToggleScreen> {
           // Interactive Globe
           Center(
             child: GlobeWidget(
-              zoomIn: 13,
+              zoomIn: 11.5,
             ),
           ),
           CustomAppBar(),
