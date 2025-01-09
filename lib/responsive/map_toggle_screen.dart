@@ -18,7 +18,8 @@ class _MapToggleScreenState extends State<MapToggleScreen> {
 
   String _status = "Not connected";
   String _publicKey = "";
-  double _solBalance = 0;
+  double _solBalance = 0.0;
+  double _tokenBalance = 0.0;
 
   Future<void> connectWallet() async {
     setState(() {
@@ -26,25 +27,28 @@ class _MapToggleScreenState extends State<MapToggleScreen> {
     });
 
     try {
+      String mintAddress = "ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY";
       // Attempt to connect the wallet
       final publicKey = await _walletService.connectWallet();
       final solBalance = await _walletService.getSolBalance(publicKey);
+      final tokenBalance =
+          await _walletService.getTokenBalance(publicKey, mintAddress);
 
       // Update state and navigate after the state is updated
       if (!mounted) return; // Safeguard against widget unmounting
       setState(() {
         _publicKey = publicKey;
         _solBalance = solBalance;
+        _tokenBalance = tokenBalance;
         _status = "Connected!";
       });
 
-      context.go('/map', extra: {
-        'publicKey': _publicKey,
-        'tokenBalance': solBalance,
-      });
+      context.go('/map',
+          extra: {'publicKey': _publicKey, 'tokenBalance': tokenBalance});
 
       print("Public Key: $_publicKey");
       print("Sol Balance: $_solBalance");
+      print("Moo Deng Balance: $_tokenBalance");
     } catch (e) {
       if (!mounted) return; // Safeguard against widget unmounting
       setState(() {

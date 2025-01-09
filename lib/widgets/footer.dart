@@ -11,15 +11,15 @@ class Footer extends StatelessWidget {
       bottom: 0,
       left: 0,
       right: 0,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16.0,
-          vertical: 12.0,
-        ),
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 16.0,
+                bottom: 16.0,
+              ),
               child: StartButton(
                 onTap: () async {
                   const url =
@@ -31,20 +31,20 @@ class Footer extends StatelessWidget {
                 },
               ),
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Text(
-                "© 2025 by Taxhavistan, LLC. All rights reserved!",
-                style: const TextStyle(
-                  fontFamily: "Audiowide",
-                  fontSize: 12.0,
-                  color: Colors.amber,
-                  fontWeight: FontWeight.bold,
-                ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              "© 2025. All rights reserved!",
+              style: const TextStyle(
+                fontFamily: "Audiowide",
+                fontSize: 12.0,
+                color: Color(0xFF80A8FF),
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

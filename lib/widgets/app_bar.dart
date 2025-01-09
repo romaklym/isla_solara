@@ -97,7 +97,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
             Align(
               alignment: Alignment.center,
               child: Text(
-                "Taxhavistan",
+                "Isla Solara",
                 style: const TextStyle(
                   fontFamily: "Nabla",
                   fontWeight: FontWeight.w900,

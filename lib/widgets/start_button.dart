@@ -35,8 +35,8 @@ class StartButton extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                const Color(0xFFfad02b), // Start color
-                const Color(0xFFffde59), // End color
+                const Color(0xFFADFAFF), // Start color
+                const Color(0xFF80A8FF), // End color
               ],
               begin: Alignment.centerLeft, // Start position of the gradient
               end: Alignment.centerRight, // End position of the gradient
