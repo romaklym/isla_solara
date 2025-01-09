@@ -5,7 +5,6 @@ import 'package:taxhavistan/dialogs/how_to_play.dart';
 import 'package:taxhavistan/dialogs/unauthorized_dialog.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
 import 'package:taxhavistan/widgets/square_info_dialog.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MapScreen extends StatefulWidget {
   final String publicKey;
@@ -85,36 +84,6 @@ class _MapScreenState extends State<MapScreen> {
           child: Row(
             children: [
               CustomButton(
-                icon: FontAwesomeIcons.xTwitter,
-                iconSize: 12.0,
-                color: const Color(0xFF006992),
-                onTap: () async {
-                  const url = "https://x.com/taxhavistan";
-                  if (await canLaunchUrl(Uri.parse(url))) {
-                    await launchUrl(Uri.parse(url),
-                        mode: LaunchMode.externalApplication);
-                  }
-                },
-              ),
-              SizedBox(
-                width: 16.0,
-              ),
-              CustomButton(
-                icon: FontAwesomeIcons.telegram,
-                iconSize: 12.0,
-                color: const Color(0xFF298AAA),
-                onTap: () async {
-                  const url = "https://t.me/taxhavistan";
-                  if (await canLaunchUrl(Uri.parse(url))) {
-                    await launchUrl(Uri.parse(url),
-                        mode: LaunchMode.externalApplication);
-                  }
-                },
-              ),
-              SizedBox(
-                width: 16.0,
-              ),
-              CustomButton(
                 icon: FontAwesomeIcons.gamepad,
                 label: "How to Play?",
                 color: const Color(0xFF51ACC2),
@@ -178,7 +147,7 @@ class _MapScreenState extends State<MapScreen> {
                     label: widget.publicKey.isNotEmpty
                         ? widget.publicKey
                         : 'No Key',
-                    maxCharacters: 14,
+                    maxCharacters: 8,
                   ),
                 ],
               ),

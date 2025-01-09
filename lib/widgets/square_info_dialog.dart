@@ -132,7 +132,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                             islandName ?? "Loading...",
                             style: const TextStyle(
                               fontFamily: "Audiowide",
-                              fontSize: 14.0,
+                              fontSize: 18.0,
                               color: Color(0xFF704214),
                             ),
                           ),
@@ -170,29 +170,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                               ),
                               const SizedBox(height: 16),
                               Text(
-                                "Username #${widget.publicKey}",
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontFamily: "Audiowide",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              Text(
-                                "Balance: ${widget.walletBalance} \$TAX",
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontFamily: "Audiowide",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              Text(
-                                "Coordinates: Latitude: ${widget.row.toStringAsFixed(2)}, Longitude: ${widget.col.toStringAsFixed(2)}",
+                                "Coordinates: ${widget.row.toStringAsFixed(2)}, ${widget.col.toStringAsFixed(2)}",
                                 style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.black54,

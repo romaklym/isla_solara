@@ -4,7 +4,6 @@ import 'package:taxhavistan/dialogs/tokenomics.dart';
 import 'package:taxhavistan/dialogs/how_to_play.dart';
 import 'package:taxhavistan/widgets/app_bar_buttons.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CustomAppBar extends StatefulWidget {
   const CustomAppBar({super.key});
@@ -39,36 +38,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
               alignment: Alignment.centerLeft,
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 16.0,
-                  ),
-                  CustomButton(
-                    icon: FontAwesomeIcons.xTwitter,
-                    iconSize: 12.0,
-                    color: const Color(0xFF006992),
-                    onTap: () async {
-                      const url = "https://x.com/taxhavistan";
-                      if (await canLaunchUrl(Uri.parse(url))) {
-                        await launchUrl(Uri.parse(url),
-                            mode: LaunchMode.externalApplication);
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    width: 16.0,
-                  ),
-                  CustomButton(
-                    icon: FontAwesomeIcons.telegram,
-                    iconSize: 12.0,
-                    color: const Color(0xFF298AAA),
-                    onTap: () async {
-                      const url = "https://t.me/taxhavistan";
-                      if (await canLaunchUrl(Uri.parse(url))) {
-                        await launchUrl(Uri.parse(url),
-                            mode: LaunchMode.externalApplication);
-                      }
-                    },
-                  ),
                   SizedBox(
                     width: 16.0,
                   ),
