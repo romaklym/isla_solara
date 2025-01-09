@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:taxhavistan/dialogs/tokenomics.dart';
-import 'package:taxhavistan/dialogs/how_to_play.dart';
+import 'package:taxhavistan/dialogs/how_to_play_dialog.dart';
+import 'package:taxhavistan/dialogs/tokenomics_dialog.dart';
 import 'package:taxhavistan/widgets/app_bar_buttons.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
 

@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:taxhavistan/widgets/copy_text.dart';
+import 'package:taxhavistan/widgets/custom_button.dart';
 
-class Tokenomics extends StatefulWidget {
-  const Tokenomics({super.key});
+class WalletNotFoundDialog extends StatelessWidget {
+  const WalletNotFoundDialog({super.key});
 
-  @override
-  State<Tokenomics> createState() => _TokenomicsState();
-}
-
-class _TokenomicsState extends State<Tokenomics> {
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.6;
-    final height = MediaQuery.of(context).size.height * 0.6;
+    final width = MediaQuery.of(context).size.width * 0.4;
+    final height = MediaQuery.of(context).size.height * 0.3;
 
     return Dialog(
       insetPadding: EdgeInsets.zero,
@@ -21,7 +15,7 @@ class _TokenomicsState extends State<Tokenomics> {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: Colors.transparent, // Transparent to show background image
+          color: Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: const Color(0xFF704214), // Retro brown color
@@ -43,13 +37,13 @@ class _TokenomicsState extends State<Tokenomics> {
               Positioned.fill(
                 child: Image.asset(
                   'assets/positioned.png',
-                  fit: BoxFit.cover, // Cover entire container
+                  fit: BoxFit.cover,
                 ),
               ),
               // Transparent Grid Overlay
               Positioned.fill(
                 child: CustomPaint(
-                  painter: _RetroGridPainter(), // Paint the grid
+                  painter: _RetroGridPainter(),
                 ),
               ),
               Column(
@@ -74,48 +68,44 @@ class _TokenomicsState extends State<Tokenomics> {
                         Padding(
                           padding: const EdgeInsets.only(left: 16.0),
                           child: Text(
-                            "Tokenomics",
-                            style: TextStyle(
+                            "Wallet Not Found",
+                            style: const TextStyle(
                               fontFamily: "Audiowide",
                               fontSize: 14.0,
-                              color: const Color(0xFF704214),
+                              color: Color(0xFF704214),
                             ),
                           ),
-                        ),
-                        const Spacer(),
-                        IconButton(
-                          icon: const FaIcon(
-                            FontAwesomeIcons.x,
-                            color: Colors.redAccent,
-                          ),
-                          onPressed: () => Navigator.of(context).pop(),
-                          iconSize: 14.0,
                         ),
                       ],
                     ),
                   ),
                   // Content Area
                   Expanded(
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.all(8.0),
-                      child: Stack(
-                        children: [
-                          Align(
-                            alignment: Alignment.center,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                CopyTextWidget(
-                                  addressFontSize: 12.0,
-                                  addressIconSize: 12.0,
-                                  contWidth: 420,
-                                  copyText:
-                                      "0x532f27101965dd16442E59d40670FaF5eBB142E4",
-                                ),
-                              ],
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Phantom wallet is not detected. Please ensure it is installed and try again.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: "Audiowide",
+                                color: Colors.white70,
+                              ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 16),
+                            CustomButton(
+                              color: const Color(0xFFe85229),
+                              onTap: () {
+                                Navigator.of(context).pop(); // Close dialog
+                              },
+                              label: "OK",
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

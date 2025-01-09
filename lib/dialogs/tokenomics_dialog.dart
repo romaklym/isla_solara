@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class HowToPlay extends StatefulWidget {
-  const HowToPlay({super.key});
+class Tokenomics extends StatefulWidget {
+  const Tokenomics({super.key});
 
   @override
-  State<HowToPlay> createState() => _HowToPlayState();
+  State<Tokenomics> createState() => _TokenomicsState();
 }
 
-class _HowToPlayState extends State<HowToPlay> {
+class _TokenomicsState extends State<Tokenomics> {
   final PageController _pageController = PageController();
 
   @override

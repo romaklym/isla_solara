@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:taxhavistan/widgets/custom_button.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:taxhavistan/widgets/copy_text.dart';
 
-class UnauthorizedDialog extends StatelessWidget {
-  const UnauthorizedDialog({super.key});
+class HowToPlay extends StatefulWidget {
+  const HowToPlay({super.key});
 
   @override
+  State<HowToPlay> createState() => _HowToPlayState();
+}
+
+class _HowToPlayState extends State<HowToPlay> {
+  @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.4;
-    final height = MediaQuery.of(context).size.height * 0.3;
+    final width = MediaQuery.of(context).size.width * 0.6;
+    final height = MediaQuery.of(context).size.height * 0.6;
 
     return Dialog(
       insetPadding: EdgeInsets.zero,
@@ -16,7 +21,7 @@ class UnauthorizedDialog extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: Colors.transparent,
+          color: Colors.transparent, // Transparent to show background image
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: const Color(0xFF704214), // Retro brown color
@@ -38,13 +43,13 @@ class UnauthorizedDialog extends StatelessWidget {
               Positioned.fill(
                 child: Image.asset(
                   'assets/positioned.png',
-                  fit: BoxFit.cover,
+                  fit: BoxFit.cover, // Cover entire container
                 ),
               ),
               // Transparent Grid Overlay
               Positioned.fill(
                 child: CustomPaint(
-                  painter: _RetroGridPainter(),
+                  painter: _RetroGridPainter(), // Paint the grid
                 ),
               ),
               Column(
@@ -69,45 +74,48 @@ class UnauthorizedDialog extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 16.0),
                           child: Text(
-                            "Unauthorized Access",
-                            style: const TextStyle(
+                            "How To Play?",
+                            style: TextStyle(
                               fontFamily: "Audiowide",
                               fontSize: 14.0,
-                              color: Color(0xFF704214),
+                              color: const Color(0xFF704214),
                             ),
                           ),
+                        ),
+                        const Spacer(),
+                        IconButton(
+                          icon: const FaIcon(
+                            FontAwesomeIcons.x,
+                            color: Colors.redAccent,
+                          ),
+                          onPressed: () => Navigator.of(context).pop(),
+                          iconSize: 14.0,
                         ),
                       ],
                     ),
                   ),
                   // Content Area
                   Expanded(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'You need to log in with your Phantom wallet to access this page.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: "Audiowide",
-                                color: Colors.white70,
-                              ),
+                    child: SingleChildScrollView(
+                      padding: EdgeInsets.all(8.0),
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                CopyTextWidget(
+                                  addressFontSize: 12.0,
+                                  addressIconSize: 12.0,
+                                  contWidth: 420,
+                                  copyText:
+                                      "0x532f27101965dd16442E59d40670FaF5eBB142E4",
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: 16),
-                            CustomButton(
-                              color: Color(0xFFe85229),
-                              onTap: () {
-                                Navigator.of(context).pop(); // Close dialog
-                                context.go('/'); // Redirect to login
-                              },
-                              label: "Back to Login",
-                            )
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

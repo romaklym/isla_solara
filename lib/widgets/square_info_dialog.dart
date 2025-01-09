@@ -69,7 +69,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.4;
+    final width = MediaQuery.of(context).size.width * 0.3;
     final height = MediaQuery.of(context).size.height * 0.6;
 
     return Dialog(

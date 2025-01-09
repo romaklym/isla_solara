@@ -34,18 +34,10 @@ class MyApp extends StatelessWidget {
         ),
         GoRoute(
           path: '/map',
-          builder: (context, state) {
-            // Ensure state.extra is a Map and extract values
-            final extra = state.extra as Map<String, dynamic>? ?? {};
+          builder: (context, state) =>
+              // Ensure state.extra is a Map and extract values
 
-            final publicKey = extra['publicKey'] ?? 'Unknown';
-            final tokenBalance = extra['tokenBalance'] ?? 0.0;
-
-            return MapScreen(
-              publicKey: publicKey,
-              tokenBalance: tokenBalance,
-            );
-          },
+              const MapScreen(),
         ),
       ],
     );

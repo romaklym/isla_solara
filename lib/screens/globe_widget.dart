@@ -50,7 +50,7 @@ class GlobeWidgetState extends State<GlobeWidget>
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       earthTexture = await loadTexture('assets/4096_earth.jpg');
       nightTexture = await loadTexture('assets/4096_night_lights.jpg');
-      starsTexture = await loadTexture('assets/8k_stars_milky_way.jpg');
+      starsTexture = await loadTexture('assets/2k_stars.jpg');
 
       setState(() {
         _texturesLoaded = true;

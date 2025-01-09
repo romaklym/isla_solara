@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:js' as js;
 import 'package:http/http.dart' as http;
+import 'dart:html' as html;
 
 class WalletService {
   String _publicKey = "";
@@ -158,5 +159,11 @@ class WalletService {
       js.allowInterop((error) => completer.completeError(error)),
     ]);
     return completer.future;
+  }
+
+  Future<bool> isWalletAvailable() async {
+    // Simulate checking if Phantom wallet is available
+    // Replace with actual implementation based on your wallet API
+    return html.window.navigator.userAgent.contains('Phantom');
   }
 }

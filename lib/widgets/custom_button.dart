@@ -38,7 +38,9 @@ class CustomButton extends StatelessWidget {
         : color; // Default inactive color
 
     // Truncate the label if maxCharacters is provided
-    final truncatedLabel = (label != null && maxCharacters != null)
+    final truncatedLabel = (label != null &&
+            maxCharacters != null &&
+            maxCharacters! > 0)
         ? (label!.length > maxCharacters!
             ? '${label!.substring(0, (maxCharacters! ~/ 2) - 1)}...${label!.substring(label!.length - ((maxCharacters! ~/ 2) - 1))}'
             : label)
