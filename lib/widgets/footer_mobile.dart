@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:taxhavistan/dialogs/how_to_play_dialog.dart';
-import 'package:taxhavistan/dialogs/tokenomics_dialog.dart';
+import 'package:taxhavistan/dialogs/tokenomics_mobile.dart';
 import 'package:taxhavistan/widgets/buy_button.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -46,6 +46,9 @@ class _FooterMobileState extends State<FooterMobile> {
                           mode: LaunchMode.externalApplication);
                     }
                   },
+                  fontSize: 12.0,
+                  iconSize: 14.0,
+                  sizedBoxSize: 16.0,
                 ),
                 CustomButton(
                   icon: FontAwesomeIcons.gamepad,
@@ -54,14 +57,18 @@ class _FooterMobileState extends State<FooterMobile> {
                   onTap: () => _openDialog(
                     const HowToPlay(),
                   ),
+                  fontSize: 10.0,
+                  iconSize: 12.0,
                 ),
                 CustomButton(
                   icon: FontAwesomeIcons.coins,
                   label: "Tokenomics",
                   color: const Color(0xFFaebc6e),
                   onTap: () => _openDialog(
-                    const Tokenomics(),
+                    const TokenomicsMobile(),
                   ),
+                  fontSize: 10.0,
+                  iconSize: 12.0,
                 ),
               ],
             )

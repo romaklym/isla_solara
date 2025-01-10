@@ -12,7 +12,7 @@ class BuyButton extends StatelessWidget {
     required this.onTap, // Require onTap function
     this.iconSize = 20.0, // Default icon size
     this.fontSize = 18.0, // Default font size
-    this.sizedBoxSize = 8.0, // Default spacing size
+    this.sizedBoxSize = 28.0, // Default spacing size
   });
 
   @override
@@ -31,7 +31,7 @@ class BuyButton extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap, // Use the passed function
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 8),
+          padding: EdgeInsets.symmetric(horizontal: sizedBoxSize, vertical: 8),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -57,7 +57,7 @@ class BuyButton extends StatelessWidget {
                 color: Colors.white70,
                 size: iconSize, // Use customizable icon size
               ),
-              SizedBox(width: sizedBoxSize), // Use customizable spacing
+              SizedBox(width: 8.0), // Use customizable spacing
               Text(
                 "Buy",
                 style: TextStyle(

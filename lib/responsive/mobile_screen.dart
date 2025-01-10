@@ -15,7 +15,7 @@ class MobileScreen extends StatelessWidget {
           children: [
             Positioned.fill(
               child: Image.asset(
-                'assets/back.png',
+                'assets/back_mobile.png',
                 fit: BoxFit.cover, // Cover entire container
               ),
             ),

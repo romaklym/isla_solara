@@ -31,8 +31,8 @@ class _AppBarMobileState extends State<AppBarMobile> {
                   children: [
                     CustomButton(
                       svgPath: 'assets/dex.svg',
-                      label: 'DexScreener',
-                      color: const Color(0xFFf8c3b6),
+                      label: 'Dex',
+                      color: const Color(0xFF666A75),
                       onTap: () async {
                         const url =
                             "https://dexscreener.com/solana/ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY";
