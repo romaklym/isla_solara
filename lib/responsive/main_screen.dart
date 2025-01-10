@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taxhavistan/widgets/app_bar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:taxhavistan/widgets/footer.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
 import 'package:go_router/go_router.dart';
 
@@ -56,18 +57,35 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
 
-          CustomAppBar(),
-          Align(
-            alignment: Alignment.center,
-            child: CustomButton(
-              icon: Icons.map_rounded,
-              color: const Color(0xFF269b4b),
-              label: "Claim Land",
-              onTap: () {
-                context.go('/map');
-              },
-              fontSize: 16.0,
-              iconSize: 20.0,
+          Footer(),
+
+          Center(
+            // Use Center to position the Column in the middle of the screen
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // Minimize height of the Column
+              children: [
+                Text(
+                  "Make Money by Claiming Your Land",
+                  style: const TextStyle(
+                    fontFamily: "Audiowide",
+                    fontWeight: FontWeight.w900,
+                    fontSize: 28.0,
+                    color: Color(0xFF582b84),
+                  ),
+                ),
+                const SizedBox(
+                    height: 16), // Add spacing between Text and Button
+                CustomButton(
+                  icon: FontAwesomeIcons.mapLocationDot,
+                  color: const Color(0xFF74B8CE),
+                  label: "View Map",
+                  onTap: () {
+                    context.go('/map');
+                  },
+                  fontSize: 20.0,
+                  iconSize: 24.0,
+                ),
+              ],
             ),
           ),
         ],

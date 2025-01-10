@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:taxhavistan/widgets/app_bar_mobile.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
-import 'package:taxhavistan/widgets/buy_button.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:taxhavistan/widgets/footer_mobile.dart';
 
 class MobileScreen extends StatelessWidget {
   const MobileScreen({super.key});
@@ -14,89 +13,30 @@ class MobileScreen extends StatelessWidget {
         backgroundColor: Colors.black,
         body: Stack(
           children: [
-            // App Bar
-            Positioned(
-              top: 0, // Place at the top of the screen
-              left: 0,
-              right: 0,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 4.0,
-                ),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          CustomButton(
-                            icon: FontAwesomeIcons.xTwitter,
-                            iconSize: 12.0,
-                            color: const Color(0xFF01b7e6),
-                            onTap: () async {
-                              const url = "https://x.com/taxhavistan";
-                              if (await canLaunchUrl(Uri.parse(url))) {
-                                await launchUrl(Uri.parse(url),
-                                    mode: LaunchMode.externalApplication);
-                              }
-                            },
-                          ),
-                          SizedBox(
-                            width: 8.0,
-                          ),
-                          CustomButton(
-                            icon: FontAwesomeIcons.telegram,
-                            iconSize: 12.0,
-                            color: const Color(0xFF01b7e6),
-                            onTap: () async {
-                              const url = "https://t.me/taxhavistan";
-                              if (await canLaunchUrl(Uri.parse(url))) {
-                                await launchUrl(Uri.parse(url),
-                                    mode: LaunchMode.externalApplication);
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Isla Solara",
-                        style: const TextStyle(
-                          fontFamily: "Nabla",
-                          fontWeight: FontWeight.w900,
-                          fontSize: 18.0,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: CustomButton(
-                        label: "How to Play?",
-                        fontSize: 10.0,
-                        color: const Color(0xFFa134f6),
-                        onTap: () async {
-                          const url = "https://x.com/taxhavistan";
-                          if (await canLaunchUrl(Uri.parse(url))) {
-                            await launchUrl(Uri.parse(url),
-                                mode: LaunchMode.externalApplication);
-                          }
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+            Positioned.fill(
+              child: Image.asset(
+                'assets/back.png',
+                fit: BoxFit.cover, // Cover entire container
               ),
             ),
+            // Transparent Grid Overlay
+            Positioned.fill(
+              child: CustomPaint(
+                painter: _RetroGridPainter(), // Paint the grid
+              ),
+            ),
+            // App Bar
+            AppBarMobile(),
+            // Footer
+            FooterMobile(),
+
             // Informational Message
             Align(
               alignment: Alignment.center,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: Container(
+                  width: 250,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     boxShadow: [
@@ -111,7 +51,7 @@ class MobileScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 16),
                     decoration: BoxDecoration(
-                      color: Color(0xFFf4683d), // Use determined button color
+                      color: Color(0xFF86aed1), // Use determined button color
                       border: Border.all(color: Colors.black54, width: 1.5),
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -128,45 +68,16 @@ class MobileScreen extends StatelessWidget {
                             color: Colors.white70,
                           ),
                         ),
-                        const SizedBox(height: 8.0),
+                        const SizedBox(height: 16.0),
                         CustomButton(
-                          label: "Learn More",
-                          color: Color(0xFFf9943b),
+                          color: Color(0xFFe85229),
                           onTap: () {},
-                        )
+                          label: "About",
+                          icon: Icons.people,
+                        ),
                       ],
                     ),
                   ),
-                ),
-              ),
-            ),
-
-            // Footer with Buy Button
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 12.0,
-                ),
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: BuyButton(
-                        onTap: () async {
-                          const url =
-                              "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol";
-                          if (await canLaunchUrl(Uri.parse(url))) {
-                            await launchUrl(Uri.parse(url),
-                                mode: LaunchMode.externalApplication);
-                          }
-                        },
-                      ),
-                    ),
-                  ],
                 ),
               ),
             ),
@@ -175,4 +86,25 @@ class MobileScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class _RetroGridPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.black.withAlpha(25)
+      ..strokeWidth = 0.5;
+
+    const gridSpacing = 15.0;
+
+    for (double x = 0; x <= size.width; x += gridSpacing) {
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
+    }
+    for (double y = 0; y <= size.height; y += gridSpacing) {
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

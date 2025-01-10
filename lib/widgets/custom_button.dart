@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomButton extends StatelessWidget {
   final Color color;
@@ -83,7 +84,7 @@ class CustomButton extends StatelessWidget {
                 ),
               // Otherwise display the icon if provided
               if (svgPath == null && icon != null)
-                Icon(
+                FaIcon(
                   icon,
                   color: Colors.white70,
                   size: iconSize,

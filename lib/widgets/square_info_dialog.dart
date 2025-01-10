@@ -199,14 +199,11 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.3;
-    final height = MediaQuery.of(context).size.height * 0.6;
-
     return Dialog(
       insetPadding: EdgeInsets.zero,
       child: Container(
-        width: width,
-        height: height,
+        width: 450,
+        height: 600,
         decoration: BoxDecoration(
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(8),
@@ -268,6 +265,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                                 fontSize: 18.0,
                                 color: Color(0xFF704214),
                               ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                           Row(

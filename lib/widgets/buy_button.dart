@@ -35,14 +35,13 @@ class BuyButton extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                const Color(0xFFA2EEF2), // Start color
-                const Color(0xFF7ACDDA),
-                const Color(0xFF51ACC2),
-                const Color(0xFF298AAA),
-                const Color(0xFF006992),
+                const Color(0xFF9CBD88), // Start color
+                const Color(0xFF7A9858),
+                const Color(0xFF5A7446),
+                const Color(0xFF425D37),
               ],
-              begin: Alignment.topLeft, // Start position of the gradient
-              end: Alignment.bottomRight, // End position of the gradient
+              begin: Alignment.centerLeft, // Start position of the gradient
+              end: Alignment.centerRight, // End position of the gradient
             ),
             border: Border.all(
               color: Colors.black54,
