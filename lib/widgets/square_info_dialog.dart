@@ -27,7 +27,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
   String? islandName;
   double? islandPrice;
   int? timesBought;
-  String? owner;
+  String? currentOwner;
 
   @override
   void initState() {
@@ -47,7 +47,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
         setState(() {
           islandName = doc.data()?['name'] ?? 'Unknown Island';
           islandPrice = doc.data()?['price'] ?? 0.0;
-          // owner = doc.data()?['owner'] ?? 'Unknown Owner';
+          currentOwner = doc.data()?['current_owner'] ?? 'Unknown Owner';
           timesBought = doc.data()?['times_bought'] ?? 0;
         });
       } else {
@@ -75,6 +75,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
       final docId = widget.squareNumber.toString();
 
       try {
+        final newPrice = price + (price * 0.015);
         // Perform the Firestore update
         await FirebaseFirestore.instance
             .collection('islands')
@@ -82,27 +83,38 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
             .update({
           'owners': FieldValue.arrayUnion([widget.publicKey]),
           'times_bought': FieldValue.increment(1),
+          'current_owner': widget.publicKey,
+          'price': newPrice,
         });
 
         // Show success snack bar
         if (mounted) {
           messenger.showSnackBar(
             SnackBar(
-              width: 300,
+              width: MediaQuery.of(context).size.width / 3,
               behavior: SnackBarBehavior.floating,
               backgroundColor: const Color(0xFF86b9e1),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-                side: const BorderSide(color: Colors.black54, width: 2),
+                borderRadius: BorderRadius.circular(
+                  8.0,
+                ),
+                side: const BorderSide(
+                  color: Color(0xFF704214),
+                  width: 2,
+                ),
               ),
-              content: const Text(
-                "Congratulations! You now own this island.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: "Audiowide",
-                  color: Colors.black54,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
+              content: Container(
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: const Text(
+                  "Congratulations! You now own this island.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: "Audiowide",
+                    color: Colors.white70,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
                 ),
               ),
             ),
@@ -119,27 +131,67 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
         if (mounted) {
           messenger.showSnackBar(
             SnackBar(
-              content: Text("Error: $error"),
-              backgroundColor: Colors.redAccent,
+              width: MediaQuery.of(context).size.width / 3,
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Color(0xFFf96574),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  8.0,
+                ),
+                side: const BorderSide(
+                  color: Color(0xFF704214),
+                  width: 2,
+                ),
+              ),
+              content: Container(
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: Text(
+                  "Error: $error",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: "Audiowide",
+                    color: Colors.white70,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
             ),
           );
         }
       }
     } else {
+      Navigator.of(context).pop();
       // Insufficient funds warning
       messenger.showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Insufficient funds to purchase!",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: "Audiowide",
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
+        SnackBar(
+          width: MediaQuery.of(context).size.width / 3,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Color(0xFFf96574),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              8.0,
+            ),
+            side: const BorderSide(
+              color: Color(0xFF704214),
+              width: 2,
             ),
           ),
-          backgroundColor: Colors.orangeAccent,
+          content: Container(
+            width: double.infinity,
+            alignment: Alignment.center,
+            child: const Text(
+              "Insufficient funds to purchase!",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: "Audiowide",
+                color: Colors.white70,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+          ),
         ),
       );
     }
@@ -248,27 +300,41 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                   Expanded(
                     child: Stack(
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Coordinates: ${widget.row.toStringAsFixed(2)}, ${widget.col.toStringAsFixed(2)}",
-                              style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black54,
-                                  fontFamily: "Audiowide"),
-                            ),
-                          ],
+                        Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                currentOwner == null || currentOwner!.isEmpty
+                                    ? "Lot hasn't been sold yet"
+                                    : "Current Owner: $currentOwner",
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontFamily: "Audiowide",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.0,
+                                  color: Color(0xFF704214),
+                                ),
+                              ),
+                              Text(
+                                "Coordinates: ${widget.row.toStringAsFixed(2)}, ${widget.col.toStringAsFixed(2)}",
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black54,
+                                    fontFamily: "Audiowide"),
+                              ),
+                            ],
+                          ),
                         ),
-                        Positioned(
-                          right: 0,
-                          left: 0,
-                          bottom: 0,
+                        Align(
+                          alignment: Alignment.bottomCenter,
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 16.0),
                             child: CustomButton(
                               color: const Color(0xFF21c21c),
-                              label: islandPrice.toString(),
+                              label: islandPrice?.toStringAsFixed(2),
                               icon: Icons.attach_money,
                               onTap: () async {
                                 _handleIslandPurchase();
