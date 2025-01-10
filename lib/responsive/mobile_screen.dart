@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:taxhavistan/dialogs/how_to_play_dialog.dart';
 import 'package:taxhavistan/widgets/app_bar_mobile.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
 import 'package:taxhavistan/widgets/footer_mobile.dart';
 
-class MobileScreen extends StatelessWidget {
+class MobileScreen extends StatefulWidget {
   const MobileScreen({super.key});
+
+  @override
+  State<MobileScreen> createState() => _MobileScreenState();
+}
+
+class _MobileScreenState extends State<MobileScreen> {
+  void _openDialog(Widget dialog) {
+    showDialog(
+      context: context,
+      builder: (_) => dialog,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,10 +84,17 @@ class MobileScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 16.0),
                         CustomButton(
-                          color: Color(0xFFe85229),
-                          onTap: () {},
-                          label: "About",
-                          icon: Icons.people,
+                          icon: FontAwesomeIcons.gamepad,
+                          label: "How to Play?",
+                          color: const Color(0xFF679a7d),
+                          onTap: () => _openDialog(
+                            const HowToPlay(
+                              widthRes: 0.9,
+                              heightRes: 0.8,
+                            ),
+                          ),
+                          fontSize: 10.0,
+                          iconSize: 12.0,
                         ),
                       ],
                     ),

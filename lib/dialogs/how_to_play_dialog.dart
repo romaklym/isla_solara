@@ -4,7 +4,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HowToPlay extends StatefulWidget {
-  const HowToPlay({super.key});
+  final double widthRes;
+  final double heightRes;
+  const HowToPlay({
+    super.key,
+    this.widthRes = 0.7,
+    this.heightRes = 0.95,
+  });
 
   @override
   State<HowToPlay> createState() => _HowToPlayState();
@@ -13,8 +19,8 @@ class HowToPlay extends StatefulWidget {
 class _HowToPlayState extends State<HowToPlay> {
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.7;
-    final height = MediaQuery.of(context).size.height * 0.95;
+    final width = MediaQuery.of(context).size.width * widget.widthRes;
+    final height = MediaQuery.of(context).size.height * widget.heightRes;
 
     return Dialog(
       insetPadding: EdgeInsets.zero,

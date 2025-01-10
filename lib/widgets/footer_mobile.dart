@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:taxhavistan/dialogs/how_to_play_dialog.dart';
-import 'package:taxhavistan/dialogs/tokenomics_mobile.dart';
 import 'package:taxhavistan/widgets/buy_button.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,13 +11,6 @@ class FooterMobile extends StatefulWidget {
 }
 
 class _FooterMobileState extends State<FooterMobile> {
-  void _openDialog(Widget dialog) {
-    showDialog(
-      context: context,
-      builder: (_) => dialog,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -51,22 +41,34 @@ class _FooterMobileState extends State<FooterMobile> {
                   sizedBoxSize: 16.0,
                 ),
                 CustomButton(
-                  icon: FontAwesomeIcons.gamepad,
-                  label: "How to Play?",
-                  color: const Color(0xFF679a7d),
-                  onTap: () => _openDialog(
-                    const HowToPlay(),
-                  ),
+                  svgPath: 'assets/dex.svg',
+                  label: 'DexScreener',
+                  color: const Color(0xFFf8c3b6),
+                  onTap: () async {
+                    const url =
+                        "https://dexscreener.com/solana/ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY";
+
+                    if (await canLaunchUrl(Uri.parse(url))) {
+                      await launchUrl(Uri.parse(url),
+                          mode: LaunchMode.externalApplication);
+                    }
+                  },
                   fontSize: 10.0,
                   iconSize: 12.0,
                 ),
                 CustomButton(
-                  icon: FontAwesomeIcons.coins,
-                  label: "Tokenomics",
-                  color: const Color(0xFFaebc6e),
-                  onTap: () => _openDialog(
-                    const TokenomicsMobile(),
-                  ),
+                  svgPath: 'assets/dextools.svg',
+                  label: 'DexTools',
+                  color: const Color(0xFF666A75),
+                  onTap: () async {
+                    const url =
+                        "https://dexscreener.com/solana/ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY";
+
+                    if (await canLaunchUrl(Uri.parse(url))) {
+                      await launchUrl(Uri.parse(url),
+                          mode: LaunchMode.externalApplication);
+                    }
+                  },
                   fontSize: 10.0,
                   iconSize: 12.0,
                 ),
