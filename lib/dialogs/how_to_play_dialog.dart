@@ -1,6 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:taxhavistan/widgets/copy_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HowToPlay extends StatefulWidget {
   const HowToPlay({super.key});
@@ -12,8 +13,8 @@ class HowToPlay extends StatefulWidget {
 class _HowToPlayState extends State<HowToPlay> {
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.6;
-    final height = MediaQuery.of(context).size.height * 0.6;
+    final width = MediaQuery.of(context).size.width * 0.7;
+    final height = MediaQuery.of(context).size.height * 0.95;
 
     return Dialog(
       insetPadding: EdgeInsets.zero,
@@ -21,15 +22,15 @@ class _HowToPlayState extends State<HowToPlay> {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: Colors.transparent, // Transparent to show background image
+          color: Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: const Color(0xFF704214), // Retro brown color
+            color: const Color(0xFF704214),
             width: 2.0,
           ),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF704214), // Shadow color
+              color: const Color(0xFF704214),
               offset: const Offset(-9, 9),
               blurRadius: 0,
             ),
@@ -43,13 +44,13 @@ class _HowToPlayState extends State<HowToPlay> {
               Positioned.fill(
                 child: Image.asset(
                   'assets/positioned.png',
-                  fit: BoxFit.cover, // Cover entire container
+                  fit: BoxFit.cover,
                 ),
               ),
               // Transparent Grid Overlay
               Positioned.fill(
                 child: CustomPaint(
-                  painter: _RetroGridPainter(), // Paint the grid
+                  painter: _RetroGridPainter(),
                 ),
               ),
               Column(
@@ -58,13 +59,13 @@ class _HowToPlayState extends State<HowToPlay> {
                   Container(
                     height: 40,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFFC978), // Retro yellow-orange
+                      color: const Color(0xFF679a7d),
                       borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(8),
                       ),
                       border: const Border(
                         bottom: BorderSide(
-                          color: Color(0xFF704214), // Retro brown border
+                          color: Color(0xFF704214),
                           width: 2,
                         ),
                       ),
@@ -75,10 +76,10 @@ class _HowToPlayState extends State<HowToPlay> {
                           padding: const EdgeInsets.only(left: 16.0),
                           child: Text(
                             "How To Play?",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: "Audiowide",
-                              fontSize: 14.0,
-                              color: const Color(0xFF704214),
+                              fontSize: 18.0,
+                              color: Colors.white70,
                             ),
                           ),
                         ),
@@ -86,7 +87,7 @@ class _HowToPlayState extends State<HowToPlay> {
                         IconButton(
                           icon: const FaIcon(
                             FontAwesomeIcons.x,
-                            color: Colors.redAccent,
+                            color: Colors.white70,
                           ),
                           onPressed: () => Navigator.of(context).pop(),
                           iconSize: 14.0,
@@ -97,23 +98,221 @@ class _HowToPlayState extends State<HowToPlay> {
                   // Content Area
                   Expanded(
                     child: SingleChildScrollView(
-                      padding: EdgeInsets.all(8.0),
-                      child: Stack(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Align(
-                            alignment: Alignment.center,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                CopyTextWidget(
-                                  addressFontSize: 12.0,
-                                  addressIconSize: 12.0,
-                                  contWidth: 420,
-                                  copyText:
-                                      "0x532f27101965dd16442E59d40670FaF5eBB142E4",
+                          _buildStepContainer(
+                            stepNumber: 1,
+                            text: RichText(
+                              text: TextSpan(
+                                text: "Buy ",
+                                style: const TextStyle(
+                                  fontFamily: "Audiowide",
+                                  fontSize: 14.0,
+                                  color: Colors.black87,
                                 ),
-                              ],
+                                children: [
+                                  TextSpan(
+                                    text: "\$LAND",
+                                    style: const TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        _launchUrl(
+                                            "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol");
+                                      },
+                                  ),
+                                  const TextSpan(text: " token."),
+                                ],
+                              ),
                             ),
+                            color: const Color(0xFFB8D6A1),
+                          ),
+                          const SizedBox(height: 16.0),
+                          _buildStepContainer(
+                            stepNumber: 2,
+                            text: RichText(
+                              text: TextSpan(
+                                text: "Login with a wallet that holds ",
+                                style: const TextStyle(
+                                  fontFamily: "Audiowide",
+                                  fontSize: 14.0,
+                                  color: Colors.black87,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: "\$LAND",
+                                    style: const TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        _launchUrl(
+                                            "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol");
+                                      },
+                                  ),
+                                  const TextSpan(
+                                      text: " tokens on our website: "),
+                                  TextSpan(
+                                    text: "islasolara.com/map",
+                                    style: const TextStyle(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        _launchUrl(
+                                            "https://islasolara.com/#/map");
+                                      },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            color: const Color(0xFFD4E6F1),
+                          ),
+                          const SizedBox(height: 16.0),
+                          _buildStepContainer(
+                            stepNumber: 3,
+                            text: RichText(
+                              text: TextSpan(
+                                text:
+                                    "Choose a land lot you wish and claim it using the coins in your wallet. ",
+                                style: const TextStyle(
+                                  fontFamily: "Audiowide",
+                                  fontSize: 14.0,
+                                  color: Colors.black87,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: "Coins are not withdrawn",
+                                    style: const TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const TextSpan(
+                                      text:
+                                          "; you just need to hold them to claim land."),
+                                ],
+                              ),
+                            ),
+                            color: const Color(0xFFFFE0B2),
+                          ),
+                          const SizedBox(height: 16.0),
+                          _buildStepContainer(
+                            stepNumber: 4,
+                            text: RichText(
+                              text: TextSpan(
+                                text: "Congratulations!",
+                                style: const TextStyle(
+                                  fontFamily: "Audiowide",
+                                  fontSize: 14.0,
+                                  color: Colors.purple,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                children: [
+                                  const TextSpan(
+                                    text:
+                                        " You are now a proud owner of a land lot on Isla Solara.",
+                                    style: TextStyle(
+                                      fontFamily: "Audiowide",
+                                      fontSize: 14.0,
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            color: const Color(0xFFF8BBD0),
+                          ),
+                          const SizedBox(height: 16.0),
+                          _buildStepContainer(
+                            stepNumber: 5,
+                            text: RichText(
+                              text: TextSpan(
+                                text: "Wait for random drops of ",
+                                style: const TextStyle(
+                                  fontFamily: "Audiowide",
+                                  fontSize: 14.0,
+                                  color: Colors.black87,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: "\$LAND",
+                                    style: const TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        _launchUrl(
+                                            "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol");
+                                      },
+                                  ),
+                                  const TextSpan(
+                                      text:
+                                          " tokens to your wallet as rewards for holding land."),
+                                ],
+                              ),
+                            ),
+                            color: const Color(0xFFC8E6C9),
+                          ),
+                          const SizedBox(height: 16.0),
+                          _buildStepContainer(
+                            stepNumber: "Sidenote",
+                            text: RichText(
+                              text: TextSpan(
+                                text:
+                                    "Other players can buy the land from you. Strategize and pay attention if you get outbid. Each purchase increases the land value by ",
+                                style: const TextStyle(
+                                  fontFamily: "Audiowide",
+                                  fontSize: 14.0,
+                                  color: Colors.black87,
+                                ),
+                                children: [
+                                  const TextSpan(
+                                    text: "1.5%",
+                                    style: TextStyle(
+                                      color: Colors.orange,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const TextSpan(text: ". "),
+                                  TextSpan(
+                                    text: "\$LAND",
+                                    style: const TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        _launchUrl(
+                                            "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol");
+                                      },
+                                  ),
+                                  const TextSpan(
+                                    text:
+                                        " drops are distributed equally among ",
+                                  ),
+                                  const TextSpan(
+                                    text: "all 3025",
+                                    style: TextStyle(
+                                      color: Colors.orange,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const TextSpan(
+                                    text: " land lot owners.",
+                                  ),
+                                ],
+                              ),
+                            ),
+                            color: const Color(0xFFF5E6CC),
                           ),
                         ],
                       ),
@@ -126,6 +325,56 @@ class _HowToPlayState extends State<HowToPlay> {
         ),
       ),
     );
+  }
+
+  Widget _buildStepContainer({
+    required dynamic stepNumber,
+    required Widget text,
+    required Color color,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: const Color(0xFF704214),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF704214),
+            offset: const Offset(-4, 4),
+            blurRadius: 0,
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Step $stepNumber:",
+            style: const TextStyle(
+              fontFamily: "Audiowide",
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF704214),
+            ),
+          ),
+          const SizedBox(height: 8.0),
+          text,
+        ],
+      ),
+    );
+  }
+
+  void _launchUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw "Could not launch $url";
+    }
   }
 }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:taxhavistan/widgets/copy_text.dart';
 
 class Tokenomics extends StatefulWidget {
   const Tokenomics({super.key});
@@ -14,14 +15,11 @@ class _TokenomicsState extends State<Tokenomics> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.55;
-    final height = MediaQuery.of(context).size.height * 0.8;
-
     return Dialog(
       insetPadding: EdgeInsets.zero,
       child: Container(
-        width: width,
-        height: height,
+        width: 850,
+        height: 600,
         decoration: BoxDecoration(
           color: const Color(0xFF86b9e1), // Blue passport color
           borderRadius: BorderRadius.circular(8),
@@ -74,7 +72,7 @@ class _TokenomicsState extends State<Tokenomics> {
                                   color: Colors.white70,
                                 ),
                                 Text(
-                                  "Taxhavistan",
+                                  "Isla Solara",
                                   style: const TextStyle(
                                     fontFamily: "Audiowide",
                                     fontSize: 20,
@@ -119,14 +117,12 @@ class _TokenomicsState extends State<Tokenomics> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text(
-                                            "This is how to play",
-                                            style: const TextStyle(
-                                              fontFamily: "Audiowide",
-                                              fontSize: 14,
-                                              color: Colors.white70,
-                                            ),
-                                            textAlign: TextAlign.center,
+                                          CopyTextWidget(
+                                            addressFontSize: 11.0,
+                                            addressIconSize: 12.0,
+                                            contWidth: 400,
+                                            copyText:
+                                                "0x532f27101965dd16442E59d40670FaF5eBB142E4",
                                           ),
                                         ],
                                       ),

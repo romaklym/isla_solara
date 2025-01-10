@@ -1,8 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:taxhavistan/widgets/footer.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -64,17 +66,39 @@ class _MainScreenState extends State<MainScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min, // Minimize height of the Column
               children: [
-                Text(
-                  "Make Money by Claiming Your Land",
-                  style: const TextStyle(
-                    fontFamily: "Audiowide",
-                    fontWeight: FontWeight.w900,
-                    fontSize: 28.0,
-                    color: Color(0xFF582b84),
+                RichText(
+                  text: TextSpan(
+                    text: "Make Money by Claiming Your ",
+                    style: const TextStyle(
+                      fontFamily: "Audiowide",
+                      fontWeight: FontWeight.w900,
+                      fontSize: 28.0,
+                      color: Color(0xFF582b84),
+                    ),
+                    children: [
+                      TextSpan(
+                        text: "\$LAND",
+                        style: const TextStyle(
+                          color: Colors.green, // Highlight the clickable text
+                          decoration:
+                              TextDecoration.underline, // Optional underline
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () async {
+                            const url =
+                                "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol";
+                            if (await canLaunchUrl(Uri.parse(url))) {
+                              await launchUrl(Uri.parse(url),
+                                  mode: LaunchMode.externalApplication);
+                            }
+                          },
+                      ),
+                    ],
                   ),
                 ),
+
                 const SizedBox(
-                    height: 16), // Add spacing between Text and Button
+                    height: 32.0), // Add spacing between Text and Button
                 CustomButton(
                   icon: FontAwesomeIcons.mapLocationDot,
                   color: const Color(0xFF74B8CE),

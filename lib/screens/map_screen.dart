@@ -11,6 +11,8 @@ import 'package:taxhavistan/widgets/square_info_dialog.dart';
 import 'dart:html' as html;
 import 'dart:js' as js;
 
+import 'package:url_launcher/url_launcher.dart';
+
 class MapScreen extends StatefulWidget {
   const MapScreen({
     super.key,
@@ -234,9 +236,16 @@ class _MapScreenState extends State<MapScreen> {
                         const SizedBox(width: 16.0),
                         CustomButton(
                           color: const Color(0xFF666A75),
-                          onTap: () {},
+                          onTap: () async {
+                            const url =
+                                "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol";
+                            if (await canLaunchUrl(Uri.parse(url))) {
+                              await launchUrl(Uri.parse(url),
+                                  mode: LaunchMode.externalApplication);
+                            }
+                          },
                           icon: Icons.attach_money,
-                          label: _tokenBalance.toStringAsFixed(2),
+                          label: "LAND: ${_tokenBalance.toStringAsFixed(2)}",
                         ),
                       ],
                       const SizedBox(width: 16.0),
