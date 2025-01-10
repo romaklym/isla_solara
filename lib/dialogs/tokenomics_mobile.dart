@@ -184,40 +184,42 @@ class _TokenomicsMobileState extends State<TokenomicsMobile> {
                 // Page 3: Lore
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "The Tale of Isla Solara",
-                        style: const TextStyle(
-                          fontFamily: "Audiowide",
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white70,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "The Tale of Isla Solara",
+                          style: const TextStyle(
+                            fontFamily: "Audiowide",
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white70,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        "Far in the heart of the vast Southern Ocean lies Isla Solara—a paradise where freedom, opportunity, and wealth belong to all who seek it.\n\nIsla Solara is a nation without borders, where every citizen shares in the prosperity of its vast resources and groundbreaking economy. With \$LAND tokens, you gain citizenship, land ownership, and the chance to shape this digital utopia.",
-                        style: const TextStyle(
-                          fontFamily: "Audiowide",
-                          fontSize: 16,
-                          color: Colors.white70,
+                        const SizedBox(height: 8),
+                        Text(
+                          "Far in the heart of the vast Southern Ocean lies Isla Solara—a paradise where freedom, opportunity, and wealth belong to all who seek it.\n\nIsla Solara is a nation without borders, where every citizen shares in the prosperity of its vast resources and groundbreaking economy. With \$LAND tokens, you gain citizenship, land ownership, and the chance to shape this digital utopia.",
+                          style: const TextStyle(
+                            fontFamily: "Audiowide",
+                            fontSize: 16,
+                            color: Colors.white70,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        "Earn passive income from resource wealth, claim your share of the island, and join a global community united by freedom and opportunity. Welcome to the future!",
-                        style: const TextStyle(
-                          fontFamily: "Audiowide",
-                          fontSize: 16,
-                          color: Colors.white70,
+                        const SizedBox(height: 16),
+                        Text(
+                          "Earn passive income from resource wealth, claim your share of the island, and join a global community united by freedom and opportunity. Welcome to the future!",
+                          style: const TextStyle(
+                            fontFamily: "Audiowide",
+                            fontSize: 16,
+                            color: Colors.white70,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

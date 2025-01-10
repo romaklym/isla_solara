@@ -17,6 +17,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF86b9e1),
       body: Stack(
         children: [
           Positioned.fill(

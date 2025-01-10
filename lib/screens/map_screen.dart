@@ -157,7 +157,7 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF86b9e1),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF805D91),
+        backgroundColor: const Color(0xFFedcc9a),
         actions: [
           SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -209,7 +209,7 @@ class _MapScreenState extends State<MapScreen> {
                             SnackBar(
                               width: 300,
                               behavior: SnackBarBehavior.floating,
-                              backgroundColor: const Color(0xFF86b9e1),
+                              backgroundColor: const Color(0xFFf8c3b6),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 side: const BorderSide(

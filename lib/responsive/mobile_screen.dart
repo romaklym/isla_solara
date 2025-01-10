@@ -10,7 +10,7 @@ class MobileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color(0xFF86b9e1),
         body: Stack(
           children: [
             Positioned.fill(

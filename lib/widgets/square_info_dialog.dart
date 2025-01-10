@@ -28,6 +28,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
   double? islandPrice;
   int? timesBought;
   String? currentOwner;
+  int? islandType;
 
   @override
   void initState() {
@@ -37,10 +38,9 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
 
   Future<void> _loadIslandName() async {
     try {
-      // Fetch the document from the Firestore collection 'islands'
       final doc = await FirebaseFirestore.instance
           .collection('islands')
-          .doc((widget.squareNumber).toString()) // Document ID is the index
+          .doc((widget.squareNumber).toString())
           .get();
 
       if (doc.exists) {
@@ -49,20 +49,23 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
           islandPrice = doc.data()?['price'] ?? 0.0;
           currentOwner = doc.data()?['current_owner'] ?? 'Unknown Owner';
           timesBought = doc.data()?['times_bought'] ?? 0;
+          islandType = doc.data()?['type'] ?? 0; // Default to 0
         });
       } else {
         setState(() {
           islandName = "Unknown Island";
           islandPrice = 0.0;
           timesBought = 0;
+          islandType = 0; // Default to 0
         });
       }
     } catch (e) {
-      print("Error fetching island name from Firestore: $e");
+      print("Error fetching island data from Firestore: $e");
       setState(() {
         islandName = "Unknown Island";
         islandPrice = 0.0;
         timesBought = 0;
+        islandType = 0; // Default to 0
       });
     }
   }
@@ -202,8 +205,8 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
     return Dialog(
       insetPadding: EdgeInsets.zero,
       child: Container(
-        width: 450,
-        height: 600,
+        width: 400,
+        height: 500,
         decoration: BoxDecoration(
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(8),
@@ -240,13 +243,13 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                   Container(
                     height: 40,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFFC978), // Retro yellow-orange
+                      color: const Color(0xFFFFC978),
                       borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(8),
                       ),
                       border: const Border(
                         bottom: BorderSide(
-                          color: Color(0xFF704214), // Retro brown border
+                          color: Color(0xFF704214),
                           width: 2,
                         ),
                       ),
@@ -298,32 +301,57 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                   Expanded(
                     child: Stack(
                       children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                currentOwner == null || currentOwner!.isEmpty
-                                    ? "Lot hasn't been sold yet"
-                                    : "Current Owner: $currentOwner",
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontFamily: "Audiowide",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12.0,
-                                  color: Color(0xFF704214),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 50.0),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                // Show image based on the island type
+                                if (islandType != null)
+                                  Container(
+                                    width: 250,
+                                    height: 250,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: const Color(0xFF704214),
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(6),
+                                      child: Image.asset(
+                                        'assets/card.png',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                const SizedBox(height: 16),
+                                Text(
+                                  currentOwner == null || currentOwner!.isEmpty
+                                      ? "Lot hasn't been sold yet"
+                                      : "Current Owner: $currentOwner",
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontFamily: "Audiowide",
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10.0,
+                                    color: Color(0xFF704214),
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "Coordinates: ${widget.row.toStringAsFixed(2)}, ${widget.col.toStringAsFixed(2)}",
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
+                                Text(
+                                  "Coordinates: ${widget.row.toStringAsFixed(0)}, ${widget.col.toStringAsFixed(0)}",
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.black54,
-                                    fontFamily: "Audiowide"),
-                              ),
-                            ],
+                                    fontFamily: "Audiowide",
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Align(
