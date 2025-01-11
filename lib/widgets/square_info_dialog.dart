@@ -9,6 +9,7 @@ class SquareInfoDialog extends StatefulWidget {
   final int col;
   final String publicKey;
   final double walletBalance;
+  final Map<int, Map<String, dynamic>> cachedIslandData;
 
   const SquareInfoDialog({
     super.key,
@@ -17,6 +18,7 @@ class SquareInfoDialog extends StatefulWidget {
     required this.col,
     required this.publicKey,
     required this.walletBalance,
+    required this.cachedIslandData,
   });
 
   @override
@@ -37,36 +39,53 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
   }
 
   Future<void> _loadIslandName() async {
+    if (widget.cachedIslandData.containsKey(widget.squareNumber)) {
+      // Already cached; set local state from cache (no Firestore read!)
+      print("Using cached data for island #${widget.squareNumber}");
+      final cachedData = widget.cachedIslandData[widget.squareNumber]!;
+      setState(() {
+        islandName = cachedData['name'];
+        islandPrice = cachedData['price'];
+        currentOwner = cachedData['current_owner'];
+        timesBought = cachedData['times_bought'];
+        islandType = cachedData['type'];
+      });
+
+      // Print only if you really want to confirm a rebuild from cache
+      // print("Rebuild from cache");
+
+      return;
+    }
+
+    // If not in cache, now we do a Firestore read
     try {
       final doc = await FirebaseFirestore.instance
           .collection('islands')
-          .doc((widget.squareNumber).toString())
+          .doc(widget.squareNumber.toString())
           .get();
-
       if (doc.exists) {
+        final data = doc.data()!;
+        widget.cachedIslandData[widget.squareNumber] =
+            data; // <— store in parent’s cache
         setState(() {
-          islandName = doc.data()?['name'] ?? 'Unknown Island';
-          islandPrice = doc.data()?['price'] ?? 0.0;
-          currentOwner = doc.data()?['current_owner'] ?? 'Unknown Owner';
-          timesBought = doc.data()?['times_bought'] ?? 0;
-          islandType = doc.data()?['type'] ?? 0; // Default to 0
+          islandName = data['name'] ?? 'Unknown Island';
+          islandPrice = data['price'] ?? 0.0;
+          currentOwner = data['current_owner'] ?? 'Unknown Owner';
+          timesBought = data['times_bought'] ?? 0;
+          islandType = data['type'] ?? 0;
+
+          print("Rebuild from Firestore fetch");
         });
       } else {
         setState(() {
           islandName = "Unknown Island";
           islandPrice = 0.0;
           timesBought = 0;
-          islandType = 0; // Default to 0
+          islandType = 0;
         });
       }
     } catch (e) {
       print("Error fetching island data from Firestore: $e");
-      setState(() {
-        islandName = "Unknown Island";
-        islandPrice = 0.0;
-        timesBought = 0;
-        islandType = 0; // Default to 0
-      });
     }
   }
 
@@ -75,19 +94,25 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
     final price = islandPrice ?? 0.0;
 
     if (widget.walletBalance >= price) {
-      final docId = widget.squareNumber.toString();
-
       try {
-        final newPrice = price + (price * 0.015);
         // Perform the Firestore update
-        await FirebaseFirestore.instance
-            .collection('islands')
-            .doc(docId)
-            .update({
-          'owners': FieldValue.arrayUnion([widget.publicKey]),
-          'times_bought': FieldValue.increment(1),
-          'current_owner': widget.publicKey,
-          'price': newPrice,
+        await FirebaseFirestore.instance.runTransaction((transaction) async {
+          final docRef = FirebaseFirestore.instance
+              .collection('islands')
+              .doc(widget.squareNumber.toString());
+
+          final snapshot = await transaction.get(docRef);
+
+          if (snapshot.exists) {
+            final data = snapshot.data()!;
+            final newPrice = data['price'] + (data['price'] * 0.015);
+            transaction.update(docRef, {
+              'owners': FieldValue.arrayUnion([widget.publicKey]),
+              'times_bought': FieldValue.increment(1),
+              'current_owner': widget.publicKey,
+              'price': newPrice,
+            });
+          }
         });
 
         // Show success snack bar

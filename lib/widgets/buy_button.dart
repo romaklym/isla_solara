@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class BuyButton extends StatelessWidget {
+class BuyButton extends StatefulWidget {
   final VoidCallback onTap; // Pass a custom function for onTap
   final double iconSize;
   final double fontSize;
@@ -16,59 +16,92 @@ class BuyButton extends StatelessWidget {
   });
 
   @override
+  State<BuyButton> createState() => _BuyButtonState();
+}
+
+class _BuyButtonState extends State<BuyButton> {
+  double _hoverGlow = 0.0; // Glow intensity on hover
+  bool _isPressed = false; // Tracks if the button is being clicked
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF704214), // Shadow color
-            offset: const Offset(-5, 5),
-            blurRadius: 0,
-          ),
-        ],
-      ),
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hoverGlow = 1.0),
+      onExit: (_) => setState(() => _hoverGlow = 0.0),
       child: GestureDetector(
-        onTap: onTap, // Use the passed function
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: sizedBoxSize, vertical: 8),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                const Color(0xFF9CBD88), // Start color
-                const Color(0xFF7A9858),
-                const Color(0xFF5A7446),
-                const Color(0xFF425D37),
-              ],
-              begin: Alignment.centerLeft, // Start position of the gradient
-              end: Alignment.centerRight, // End position of the gradient
-            ),
-            border: Border.all(
-              color: Colors.black54,
-              width: 1.5,
-            ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              FaIcon(
-                FontAwesomeIcons.dollarSign,
-                color: Colors.white70,
-                size: iconSize, // Use customizable icon size
+        onTapDown: (_) => setState(() => _isPressed = true),
+        onTapUp: (_) {
+          setState(() => _isPressed = false);
+          widget.onTap();
+        },
+        onTapCancel: () => setState(() => _isPressed = false),
+        child: TweenAnimationBuilder<double>(
+          tween: Tween<double>(begin: 0, end: _hoverGlow),
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          builder: (context, glowValue, child) {
+            return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF2ab7e3)
+                        .withValues(alpha: 0.5 * glowValue),
+                    blurRadius: 20 * glowValue,
+                    spreadRadius: 8 * glowValue,
+                  ),
+                  BoxShadow(
+                    color: const Color(0xFF704214),
+                    offset: const Offset(-5, 5),
+                    blurRadius: 0,
+                  ),
+                ],
               ),
-              SizedBox(width: 8.0), // Use customizable spacing
-              Text(
-                "Buy",
-                style: TextStyle(
-                  fontFamily: "Audiowide",
-                  fontSize: fontSize, // Use customizable font size
-                  color: Colors.white70,
-                  fontWeight: FontWeight.bold,
+              child: AnimatedScale(
+                scale: _isPressed ? 0.95 : 1.0, // Scale down when pressed
+                duration: const Duration(milliseconds: 100),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: widget.sizedBoxSize, vertical: 4),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        const Color(0xFF2ab7e3),
+                        const Color(0xFF45ebea),
+                      ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                    border: Border.all(
+                      color: Colors.black54,
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      FaIcon(
+                        FontAwesomeIcons.dollarSign,
+                        color: Colors.white70,
+                        size: widget.iconSize,
+                      ),
+                      const SizedBox(width: 8.0),
+                      Text(
+                        "Buy",
+                        style: TextStyle(
+                          fontFamily: "Audiowide",
+                          fontSize: widget.fontSize,
+                          color: Colors.white70,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

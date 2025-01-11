@@ -72,15 +72,6 @@ class _FooterState extends State<Footer> {
                         const Tokenomics(),
                       ),
                     ),
-                    SizedBox(
-                      width: 16.0,
-                    ),
-                    CustomButton(
-                      color: Color(0xFFe85229),
-                      onTap: () {},
-                      label: "About",
-                      icon: Icons.people,
-                    ),
                   ],
                 ),
                 CopyTextWidget(

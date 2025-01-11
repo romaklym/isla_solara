@@ -23,8 +23,8 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  static const double mapWidth = 6144.0;
-  static const double mapHeight = 3456.0;
+  static const double mapWidth = 1920.0;
+  static const double mapHeight = 1080.0;
   static const int rows = 55;
   static const int cols = 55;
 
@@ -35,6 +35,7 @@ class _MapScreenState extends State<MapScreen> {
   int? tappedCol;
   int? tappedRow;
   int? tappedSquareIndex;
+  Map<int, Map<String, dynamic>> cachedIslandData = {};
 
   @override
   void initState() {
@@ -115,15 +116,97 @@ class _MapScreenState extends State<MapScreen> {
       if (!mounted) return; // Check if widget is still mounted
       showDialog(
         context: context,
-        builder: (_) => AlertDialog(
-          title: const Text('Error'),
-          content: Text(e.toString()),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
+        builder: (_) => Dialog(
+          insetPadding: EdgeInsets.zero,
+          child: Container(
+            width: 320,
+            decoration: BoxDecoration(
+              color: const Color(0xFF86b9e1),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: const Color(0xFF704214), // Retro brown
+                width: 2.0,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF704214),
+                  offset: const Offset(-5, 5),
+                  blurRadius: 0,
+                ),
+              ],
             ),
-          ],
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Title bar
+                  Container(
+                    height: 40,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFC978), // Retro yellow-orange
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(8),
+                      ),
+                      border: const Border(
+                        bottom: BorderSide(
+                          color: Color(0xFF704214),
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: const Text(
+                      "Error",
+                      style: TextStyle(
+                        fontFamily: "Audiowide",
+                        fontSize: 16,
+                        color: Color(0xFF704214),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  // Content
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      e.toString(),
+                      style: const TextStyle(
+                        fontFamily: "Audiowide",
+                        fontSize: 14,
+                        color: Colors.black87,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  // OK button
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 8.0,
+                        right: 8.0,
+                      ),
+                      child: TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: const Text(
+                          'OK',
+                          style: TextStyle(
+                            fontFamily: "Audiowide",
+                            fontSize: 14,
+                            color: Color(0xFFAB66F2), // Example accent color
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       );
     }
@@ -147,17 +230,10 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final scaleFactor = screenWidth / mapWidth;
-    final scaledHeight = mapHeight * scaleFactor;
-
-    final cellWidth = screenWidth / cols;
-    final cellHeight = scaledHeight / rows;
-
     return Scaffold(
       backgroundColor: const Color(0xFF86b9e1),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFedcc9a),
+        backgroundColor: const Color(0xFFcda5e1),
         actions: [
           SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -271,68 +347,67 @@ class _MapScreenState extends State<MapScreen> {
           ),
         ],
       ),
-      body: Stack(
-        children: [
-          Center(
-            child: SingleChildScrollView(
-              child: Center(
-                child: SizedBox(
-                  width: screenWidth,
-                  height: scaledHeight,
-                  child: GestureDetector(
-                    onTapDown: (details) {
-                      final dx = details.localPosition.dx;
-                      final dy = details.localPosition.dy;
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Center(
+            child: GestureDetector(
+              onTapDown: (details) {
+                final dx = details.localPosition.dx;
+                final dy = details.localPosition.dy;
 
-                      final col = (dx ~/ cellWidth).clamp(0, cols - 1);
-                      final row = (dy ~/ cellHeight).clamp(0, rows - 1);
+                final col = (dx ~/ (mapWidth / cols)).clamp(0, cols - 1);
+                final row = (dy ~/ (mapHeight / rows)).clamp(0, rows - 1);
 
-                      final index = row * cols + col + 1;
+                final index = row * cols + col + 1;
 
-                      setState(() {
-                        tappedCol = col;
-                        tappedRow = row;
-                        tappedSquareIndex = index;
-                      });
+                setState(() {
+                  tappedCol = col;
+                  tappedRow = row;
+                  tappedSquareIndex = index;
+                });
 
-                      showDialog(
-                        context: context,
-                        builder: (ctx) {
-                          return SquareInfoDialog(
-                            squareNumber: tappedSquareIndex!,
-                            row: row,
-                            col: col,
-                            publicKey: _publicKey,
-                            walletBalance: _tokenBalance,
-                          );
-                        },
-                      );
-                    },
-                    child: Stack(
-                      children: [
-                        Positioned.fill(
-                          child: Image.asset(
-                            'assets/final_map.png',
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        CustomPaint(
-                          size: Size(screenWidth, scaledHeight),
-                          painter: IslandPainter(
-                            rows: rows,
-                            cols: cols,
-                            tappedCol: tappedCol,
-                            tappedRow: tappedRow,
-                          ),
-                        ),
-                      ],
+                showDialog(
+                  context: context,
+                  builder: (ctx) {
+                    return SquareInfoDialog(
+                      squareNumber: tappedSquareIndex!,
+                      row: row,
+                      col: col,
+                      publicKey: _publicKey,
+                      walletBalance: _tokenBalance,
+                      cachedIslandData: cachedIslandData,
+                    );
+                  },
+                );
+              },
+              child: SizedBox(
+                width: mapWidth,
+                height: mapHeight,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Image.asset(
+                        'assets/final_map.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                  ),
+                    CustomPaint(
+                      size: Size(mapWidth, mapHeight),
+                      painter: IslandPainter(
+                        rows: rows,
+                        cols: cols,
+                        tappedCol: tappedCol,
+                        tappedRow: tappedRow,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }

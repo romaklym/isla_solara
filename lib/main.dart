@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -18,6 +19,10 @@ void main() async {
         storageBucket: "taxhavistan.firebasestorage.app",
         messagingSenderId: "176859126239",
         appId: "1:176859126239:web:61b7b60d9be9892d0a8c6a"),
+  );
+
+  FirebaseFirestore.instance.settings = const Settings(
+    persistenceEnabled: true,
   );
   runApp(const MyApp());
 }

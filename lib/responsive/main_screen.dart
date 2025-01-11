@@ -69,18 +69,19 @@ class _MainScreenState extends State<MainScreen> {
               children: [
                 RichText(
                   text: TextSpan(
-                    text: "Make Money by Claiming Your ",
+                    text: "Own the ",
                     style: const TextStyle(
                       fontFamily: "Audiowide",
                       fontWeight: FontWeight.w900,
                       fontSize: 28.0,
-                      color: Color(0xFF582b84),
+                      color: Color(0xFF2f124a),
                     ),
                     children: [
                       TextSpan(
                         text: "\$LAND",
                         style: const TextStyle(
-                          color: Colors.green, // Highlight the clickable text
+                          color:
+                              Color(0xFF61821C), // Highlight the clickable text
                           decoration:
                               TextDecoration.underline, // Optional underline
                         ),
@@ -94,15 +95,33 @@ class _MainScreenState extends State<MainScreen> {
                             }
                           },
                       ),
+                      TextSpan(
+                        text: ". Earn the Rewards.",
+                        style: const TextStyle(
+                          fontFamily: "Audiowide",
+                          fontWeight: FontWeight.w900,
+                          fontSize: 28.0,
+                          color: Color(0xFF2f124a),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-
-                const SizedBox(
-                    height: 32.0), // Add spacing between Text and Button
+                const SizedBox(height: 16.0),
+                Text(
+                  "Claim land, earn passive income, and compete for the ultimate prize pool.",
+                  style: const TextStyle(
+                    fontFamily: "Audiowide",
+                    fontWeight: FontWeight.w900,
+                    fontSize: 18.0,
+                    color: Color(0xFF2f124a),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32.0),
                 CustomButton(
                   icon: FontAwesomeIcons.mapLocationDot,
-                  color: const Color(0xFF74B8CE),
+                  color: const Color(0xFFe85229),
                   label: "View Map",
                   onTap: () {
                     context.go('/map');

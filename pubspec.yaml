@@ -95,6 +95,9 @@ flutter:
     - family: Audiowide
       fonts:
         - asset: assets/fonts/Audiowide-Regular.ttf
+    - family: Rig
+      fonts:
+        - asset: assets/fonts/Rig-BoldReverse.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
