@@ -92,7 +92,7 @@ class _HowToPlayState extends State<HowToPlay> {
                         const Spacer(),
                         IconButton(
                           icon: const FaIcon(
-                            FontAwesomeIcons.x,
+                            FontAwesomeIcons.xmark,
                             color: Colors.white70,
                           ),
                           onPressed: () => Navigator.of(context).pop(),

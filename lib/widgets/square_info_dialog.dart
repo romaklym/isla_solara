@@ -230,8 +230,8 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
     return Dialog(
       insetPadding: EdgeInsets.zero,
       child: Container(
-        width: 400,
-        height: 500,
+        width: 350,
+        height: 550,
         decoration: BoxDecoration(
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(8),
@@ -285,7 +285,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 16.0),
+                            padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
                               islandName ?? "Loading...",
                               textAlign: TextAlign.center,
@@ -298,27 +298,13 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          Row(
-                            children: [
-                              Text(
-                                "Lot #${widget.squareNumber}",
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontFamily: "Audiowide",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.0,
-                                  color: Color(0xFF704214),
-                                ),
-                              ),
-                              IconButton(
-                                icon: const FaIcon(
-                                  FontAwesomeIcons.x,
-                                  color: Colors.redAccent,
-                                ),
-                                onPressed: () => Navigator.of(context).pop(),
-                                iconSize: 14.0,
-                              ),
-                            ],
+                          IconButton(
+                            icon: const FaIcon(
+                              FontAwesomeIcons.xmark,
+                              color: Colors.redAccent,
+                            ),
+                            onPressed: () => Navigator.of(context).pop(),
+                            iconSize: 14.0,
                           ),
                         ],
                       ),
@@ -338,8 +324,8 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                                 // Show image based on the island type
                                 if (islandType != null)
                                   Container(
-                                    width: 250,
-                                    height: 250,
+                                    width: 320,
+                                    height: 220,
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         color: const Color(0xFF704214),
@@ -365,6 +351,16 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                                     fontFamily: "Audiowide",
                                     fontWeight: FontWeight.bold,
                                     fontSize: 10.0,
+                                    color: Color(0xFF704214),
+                                  ),
+                                ),
+                                Text(
+                                  "Lot #${widget.squareNumber}",
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontFamily: "Audiowide",
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.0,
                                     color: Color(0xFF704214),
                                   ),
                                 ),
