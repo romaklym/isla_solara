@@ -89,15 +89,9 @@ flutter:
     - family: Nabla
       fonts:
         - asset: assets/fonts/Nabla-Regular.ttf
-    - family: Modak
-      fonts:
-        - asset: assets/fonts/Modak-Regular.ttf
     - family: Audiowide
       fonts:
         - asset: assets/fonts/Audiowide-Regular.ttf
-    - family: Rig
-      fonts:
-        - asset: assets/fonts/Rig-BoldReverse.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
