@@ -347,63 +347,65 @@ class _MapScreenState extends State<MapScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Center(
-            child: GestureDetector(
-              onTapDown: (details) {
-                final dx = details.localPosition.dx;
-                final dy = details.localPosition.dy;
+      body: InteractiveViewer(
+        constrained: false,
+        boundaryMargin: const EdgeInsets.all(double.infinity),
+        minScale: 0.6,
+        maxScale: 5.0,
+        child: SizedBox(
+          width: mapWidth,
+          height: mapHeight,
+          child: GestureDetector(
+            onTapDown: (details) {
+              final dx = details.localPosition.dx;
+              final dy = details.localPosition.dy;
 
-                final col = (dx ~/ (mapWidth / cols)).clamp(0, cols - 1);
-                final row = (dy ~/ (mapHeight / rows)).clamp(0, rows - 1);
+              final col = (dx ~/ (mapWidth / cols)).clamp(0, cols - 1);
+              final row = (dy ~/ (mapHeight / rows)).clamp(0, rows - 1);
 
-                final index = row * cols + col + 1;
+              final index = row * cols + col + 1;
 
-                setState(() {
-                  tappedCol = col;
-                  tappedRow = row;
-                  tappedSquareIndex = index;
-                });
+              setState(() {
+                tappedCol = col;
+                tappedRow = row;
+                tappedSquareIndex = index;
+              });
 
-                showDialog(
-                  context: context,
-                  builder: (ctx) {
-                    return SquareInfoDialog(
-                      squareNumber: tappedSquareIndex!,
-                      row: row,
-                      col: col,
-                      publicKey: _publicKey,
-                      walletBalance: _tokenBalance,
-                      cachedIslandData: cachedIslandData,
-                    );
-                  },
-                );
-              },
-              child: SizedBox(
-                width: mapWidth,
-                height: mapHeight,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: Image.asset(
-                        'assets/final_map.png',
-                        fit: BoxFit.contain,
-                      ),
+              showDialog(
+                context: context,
+                builder: (ctx) {
+                  return SquareInfoDialog(
+                    squareNumber: tappedSquareIndex!,
+                    row: row,
+                    col: col,
+                    publicKey: _publicKey,
+                    walletBalance: _tokenBalance,
+                    cachedIslandData: cachedIslandData,
+                  );
+                },
+              );
+            },
+            child: SizedBox(
+              width: mapWidth,
+              height: mapHeight,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(
+                      'assets/final_map.png',
+                      fit: BoxFit.contain,
                     ),
-                    CustomPaint(
-                      size: Size(mapWidth, mapHeight),
-                      painter: IslandPainter(
-                        rows: rows,
-                        cols: cols,
-                        tappedCol: tappedCol,
-                        tappedRow: tappedRow,
-                      ),
+                  ),
+                  CustomPaint(
+                    size: Size(mapWidth, mapHeight),
+                    painter: IslandPainter(
+                      rows: rows,
+                      cols: cols,
+                      tappedCol: tappedCol,
+                      tappedRow: tappedRow,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -436,8 +438,21 @@ class IslandPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 0.02;
 
-    final tappedPaint = Paint()
-      ..color = Colors.red.withValues(alpha: 0.4)
+    // Shadow effect for 3D look
+    final shadowPaint = Paint()
+      ..color = Colors.black.withAlpha(100)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4.0;
+
+    // Highlight effect for 3D look
+    final highlightPaint = Paint()
+      ..color = Colors.white.withAlpha(150)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.0;
+
+    // Main fill for tapped square
+    final tappedFillPaint = Paint()
+      ..color = Colors.red.withAlpha(150)
       ..style = PaintingStyle.fill;
 
     for (int row = 0; row < rows; row++) {
@@ -459,7 +474,19 @@ class IslandPainter extends CustomPainter {
         cellWidth,
         cellHeight,
       );
-      canvas.drawRect(rect, tappedPaint);
+
+      // Draw shadow effect
+      final shadowOffset = Offset(3, 3); // Adjust for desired shadow depth
+      final shadowRect = rect.shift(shadowOffset);
+      canvas.drawRect(shadowRect, shadowPaint);
+
+      // Draw fill
+      canvas.drawRect(rect, tappedFillPaint);
+
+      // Draw highlight
+      final highlightOffset = Offset(-1.5, -1.5); // Adjust for highlight depth
+      final highlightRect = rect.shift(highlightOffset);
+      canvas.drawRect(highlightRect, highlightPaint);
     }
   }
 
