@@ -121,7 +121,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
             SnackBar(
               width: MediaQuery.of(context).size.width / 3,
               behavior: SnackBarBehavior.floating,
-              backgroundColor: const Color(0xFF86b9e1),
+              backgroundColor: const Color(0xFF21c21c),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
                   8.0,
@@ -134,8 +134,8 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
               content: Container(
                 width: double.infinity,
                 alignment: Alignment.center,
-                child: const Text(
-                  "Congratulations! You now own this island.",
+                child: Text(
+                  "Congratulations! You are now a proud owner of Lot#${widget.squareNumber.toString()}",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: "Audiowide",
@@ -161,7 +161,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
             SnackBar(
               width: MediaQuery.of(context).size.width / 3,
               behavior: SnackBarBehavior.floating,
-              backgroundColor: Color(0xFFf96574),
+              backgroundColor: Color(0xFFe85229),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
                   8.0,
@@ -196,7 +196,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
         SnackBar(
           width: MediaQuery.of(context).size.width / 3,
           behavior: SnackBarBehavior.floating,
-          backgroundColor: Color(0xFFf96574),
+          backgroundColor: Color(0xFFe85229),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
               8.0,

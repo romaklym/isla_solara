@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:taxhavistan/dialogs/how_to_play_dialog.dart';
 import 'package:taxhavistan/dialogs/tokenomics_dialog.dart';
-import 'package:taxhavistan/dialogs/wallet_not_found_dialog.dart.dart';
 import 'package:taxhavistan/services/wallet_services.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
 import 'package:taxhavistan/widgets/square_info_dialog.dart';
@@ -69,11 +69,34 @@ class _MapScreenState extends State<MapScreen> {
       // Check for Phantom wallet
       final solana = js.context['solana'];
       if (solana == null || solana['isPhantom'] != true) {
-        if (!mounted) return; // Check if widget is still mounted
-        showDialog(
-          context: context,
-          builder: (_) => const WalletNotFoundDialog(),
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            width: 300,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: const Color(0xFFe85229),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+              side: const BorderSide(
+                color: Color(0xFF704214),
+                width: 2,
+              ),
+            ),
+            content: Container(
+              alignment: Alignment.center,
+              child: Text(
+                "Phantom wallet is not detected. Please ensure it is installed and try again.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: "Audiowide",
+                  color: Colors.white70,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
         );
+
         return;
       }
 
@@ -97,7 +120,7 @@ class _MapScreenState extends State<MapScreen> {
       }
 
       // Fetch token balance
-      const mintAddress = "ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY";
+      const mintAddress = "AUdUEc98MGfEHJiJfCgMaW8gKdcfNDio8BFzGKBwjztC";
       final tokenBalance =
           await _walletService.getTokenBalance(publicKey, mintAddress);
 
@@ -113,97 +136,28 @@ class _MapScreenState extends State<MapScreen> {
         _tokenBalance = tokenBalance;
       });
     } catch (e) {
-      if (!mounted) return; // Check if widget is still mounted
-      showDialog(
-        context: context,
-        builder: (_) => Dialog(
-          insetPadding: EdgeInsets.zero,
-          child: Container(
-            width: 320,
-            decoration: BoxDecoration(
-              color: const Color(0xFF86b9e1),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: const Color(0xFF704214), // Retro brown
-                width: 2.0,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF704214),
-                  offset: const Offset(-5, 5),
-                  blurRadius: 0,
-                ),
-              ],
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          width: 300,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: const Color(0xFFe85229),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: const BorderSide(
+              color: Color(0xFF704214),
+              width: 2,
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Title bar
-                  Container(
-                    height: 40,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFFC978), // Retro yellow-orange
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(8),
-                      ),
-                      border: const Border(
-                        bottom: BorderSide(
-                          color: Color(0xFF704214),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: const Text(
-                      "Error",
-                      style: TextStyle(
-                        fontFamily: "Audiowide",
-                        fontSize: 16,
-                        color: Color(0xFF704214),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  // Content
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      e.toString(),
-                      style: const TextStyle(
-                        fontFamily: "Audiowide",
-                        fontSize: 14,
-                        color: Colors.black87,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  // OK button
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 8.0,
-                        right: 8.0,
-                      ),
-                      child: TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: const Text(
-                          'OK',
-                          style: TextStyle(
-                            fontFamily: "Audiowide",
-                            fontSize: 14,
-                            color: Color(0xFFAB66F2), // Example accent color
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+          ),
+          content: Container(
+            alignment: Alignment.center,
+            child: Text(
+              "Error: ${e.toString()}",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: "Audiowide",
+                color: Colors.white70,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
               ),
             ),
           ),
@@ -227,6 +181,8 @@ class _MapScreenState extends State<MapScreen> {
       builder: (_) => dialog,
     );
   }
+
+  final formatter = NumberFormat("#,##0.00", "en_US");
 
   @override
   Widget build(BuildContext context) {
@@ -261,21 +217,7 @@ class _MapScreenState extends State<MapScreen> {
                           const Tokenomics(),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                const Text(
-                  "Isla Solara",
-                  style: TextStyle(
-                    fontFamily: "Nabla",
-                    fontWeight: FontWeight.w900,
-                    fontSize: 32,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: Row(
-                    children: [
+                      const SizedBox(width: 16.0),
                       CustomButton(
                         icon: FontAwesomeIcons.chartLine,
                         label: "Stats",
@@ -308,6 +250,21 @@ class _MapScreenState extends State<MapScreen> {
                           );
                         },
                       ),
+                    ],
+                  ),
+                ),
+                const Text(
+                  "Isla Solara",
+                  style: TextStyle(
+                    fontFamily: "Nabla",
+                    fontWeight: FontWeight.w900,
+                    fontSize: 32,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: Row(
+                    children: [
                       if (_publicKey.isNotEmpty && _publicKey != "Unknown") ...[
                         const SizedBox(width: 16.0),
                         CustomButton(
@@ -320,8 +277,8 @@ class _MapScreenState extends State<MapScreen> {
                                   mode: LaunchMode.externalApplication);
                             }
                           },
-                          icon: Icons.attach_money,
-                          label: "LAND: ${_tokenBalance.toStringAsFixed(2)}",
+                          label:
+                              "\$LAND: ${formatter.format(_tokenBalance).replaceAll(',', '\'')}",
                         ),
                       ],
                       const SizedBox(width: 16.0),
@@ -337,7 +294,7 @@ class _MapScreenState extends State<MapScreen> {
                         maxCharacters:
                             _publicKey.isEmpty || _publicKey == "Unknown"
                                 ? null
-                                : 8,
+                                : 14,
                       ),
                     ],
                   ),
