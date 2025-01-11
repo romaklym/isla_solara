@@ -266,7 +266,6 @@ class _MapScreenState extends State<MapScreen> {
                   child: Row(
                     children: [
                       if (_publicKey.isNotEmpty && _publicKey != "Unknown") ...[
-                        const SizedBox(width: 16.0),
                         CustomButton(
                           color: const Color(0xFF666A75),
                           onTap: () async {

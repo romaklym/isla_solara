@@ -17,6 +17,77 @@ class HowToPlay extends StatefulWidget {
 }
 
 class _HowToPlayState extends State<HowToPlay> {
+  Widget _buildStepContainer({
+    required String stepNumber,
+    required RichText text,
+    required String imagePath,
+    required Color color,
+  }) {
+    return Container(
+      width: 400,
+      height: 220,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: const Color(0xFF704214),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF704214),
+            offset: const Offset(-4, 4),
+            blurRadius: 0,
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Image Section
+          Container(
+            width: 200,
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(
+                color: const Color(0xFF704214),
+                width: 1.5,
+              ),
+            ),
+            clipBehavior: Clip.hardEdge,
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.contain,
+            ),
+          ),
+          const SizedBox(width: 8),
+          // Text Section
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Step $stepNumber:",
+                  style: const TextStyle(
+                    fontFamily: "Audiowide",
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF704214),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                text,
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width * widget.widthRes;
@@ -53,19 +124,19 @@ class _HowToPlayState extends State<HowToPlay> {
                   fit: BoxFit.cover,
                 ),
               ),
-              // Transparent Grid Overlay
               Positioned.fill(
                 child: CustomPaint(
                   painter: _RetroGridPainter(),
                 ),
               ),
+              // Content
               Column(
                 children: [
                   // Title Bar
                   Container(
                     height: 40,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF679a7d),
+                      color: const Color(0xFFFFC978),
                       borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(8),
                       ),
@@ -78,14 +149,14 @@ class _HowToPlayState extends State<HowToPlay> {
                     ),
                     child: Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 16.0),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 16.0),
                           child: Text(
                             "How To Play?",
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: "Audiowide",
                               fontSize: 18.0,
-                              color: Colors.white70,
+                              color: Color(0xFF704214),
                             ),
                           ),
                         ),
@@ -93,7 +164,7 @@ class _HowToPlayState extends State<HowToPlay> {
                         IconButton(
                           icon: const FaIcon(
                             FontAwesomeIcons.xmark,
-                            color: Colors.white70,
+                            color: Colors.redAccent,
                           ),
                           onPressed: () => Navigator.of(context).pop(),
                           iconSize: 14.0,
@@ -106,219 +177,213 @@ class _HowToPlayState extends State<HowToPlay> {
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          _buildStepContainer(
-                            stepNumber: 1,
-                            text: RichText(
-                              text: TextSpan(
-                                text: "Buy ",
-                                style: const TextStyle(
-                                  fontFamily: "Audiowide",
-                                  fontSize: 14.0,
-                                  color: Colors.black87,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: "\$LAND",
+                          Row(),
+                          Wrap(
+                            spacing: 16.0,
+                            runSpacing: 16.0,
+                            alignment: WrapAlignment.start,
+                            children: [
+                              _buildStepContainer(
+                                stepNumber: "1",
+                                text: RichText(
+                                  text: TextSpan(
+                                    text: "Buy ",
                                     style: const TextStyle(
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        _launchUrl(
-                                            "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol");
-                                      },
-                                  ),
-                                  const TextSpan(text: " token."),
-                                ],
-                              ),
-                            ),
-                            color: const Color(0xFFB8D6A1),
-                          ),
-                          const SizedBox(height: 16.0),
-                          _buildStepContainer(
-                            stepNumber: 2,
-                            text: RichText(
-                              text: TextSpan(
-                                text: "Login with a wallet that holds ",
-                                style: const TextStyle(
-                                  fontFamily: "Audiowide",
-                                  fontSize: 14.0,
-                                  color: Colors.black87,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: "\$LAND",
-                                    style: const TextStyle(
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        _launchUrl(
-                                            "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol");
-                                      },
-                                  ),
-                                  const TextSpan(
-                                      text: " tokens on our website: "),
-                                  TextSpan(
-                                    text: "islasolara.com/map",
-                                    style: const TextStyle(
-                                      color: Colors.blue,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        _launchUrl(
-                                            "https://islasolara.com/#/map");
-                                      },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            color: const Color(0xFFD4E6F1),
-                          ),
-                          const SizedBox(height: 16.0),
-                          _buildStepContainer(
-                            stepNumber: 3,
-                            text: RichText(
-                              text: TextSpan(
-                                text:
-                                    "Choose a land lot you wish and claim it using the coins in your wallet. ",
-                                style: const TextStyle(
-                                  fontFamily: "Audiowide",
-                                  fontSize: 14.0,
-                                  color: Colors.black87,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: "Coins are not withdrawn",
-                                    style: const TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const TextSpan(
-                                      text:
-                                          "; you just need to hold them to claim land."),
-                                ],
-                              ),
-                            ),
-                            color: const Color(0xFFFFE0B2),
-                          ),
-                          const SizedBox(height: 16.0),
-                          _buildStepContainer(
-                            stepNumber: 4,
-                            text: RichText(
-                              text: TextSpan(
-                                text: "Congratulations!",
-                                style: const TextStyle(
-                                  fontFamily: "Audiowide",
-                                  fontSize: 14.0,
-                                  color: Colors.purple,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                children: [
-                                  const TextSpan(
-                                    text:
-                                        " You are now a proud owner of a land lot on Isla Solara.",
-                                    style: TextStyle(
                                       fontFamily: "Audiowide",
-                                      fontSize: 14.0,
-                                      color: Colors.black87,
-                                      fontWeight: FontWeight.normal,
+                                      fontSize: 12.0,
+                                      color: Colors.black54,
                                     ),
+                                    children: [
+                                      TextSpan(
+                                        text: "\$LAND",
+                                        style: const TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            _launchUrl(
+                                                "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol");
+                                          },
+                                      ),
+                                      const TextSpan(text: " token."),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
-                            color: const Color(0xFFF8BBD0),
-                          ),
-                          const SizedBox(height: 16.0),
-                          _buildStepContainer(
-                            stepNumber: 5,
-                            text: RichText(
-                              text: TextSpan(
-                                text: "Wait for random drops of ",
-                                style: const TextStyle(
-                                  fontFamily: "Audiowide",
-                                  fontSize: 14.0,
-                                  color: Colors.black87,
                                 ),
-                                children: [
-                                  TextSpan(
-                                    text: "\$LAND",
-                                    style: const TextStyle(
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        _launchUrl(
-                                            "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol");
-                                      },
-                                  ),
-                                  const TextSpan(
-                                      text:
-                                          " tokens to your wallet as rewards for holding land."),
-                                ],
+                                imagePath: "assets/1.png",
+                                color: const Color(0xFFF5E6CC),
                               ),
-                            ),
-                            color: const Color(0xFFC8E6C9),
-                          ),
-                          const SizedBox(height: 16.0),
-                          _buildStepContainer(
-                            stepNumber: "Sidenote",
-                            text: RichText(
-                              text: TextSpan(
-                                text:
-                                    "Other players can buy the land from you. Strategize and pay attention if you get outbid. Each purchase increases the land value by ",
-                                style: const TextStyle(
-                                  fontFamily: "Audiowide",
-                                  fontSize: 14.0,
-                                  color: Colors.black87,
-                                ),
-                                children: [
-                                  const TextSpan(
-                                    text: "1.5%",
-                                    style: TextStyle(
-                                      color: Colors.orange,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const TextSpan(text: ". "),
-                                  TextSpan(
-                                    text: "\$LAND",
+                              _buildStepContainer(
+                                stepNumber: "2",
+                                text: RichText(
+                                  text: TextSpan(
+                                    text: "Go to ",
                                     style: const TextStyle(
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "Audiowide",
+                                      fontSize: 12.0,
+                                      color: Colors.black54,
                                     ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        _launchUrl(
-                                            "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol");
-                                      },
+                                    children: [
+                                      TextSpan(
+                                        text: "islasolara.com",
+                                        style: const TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            _launchUrl(
+                                                "https://islasolara.com");
+                                          },
+                                      ),
+                                      const TextSpan(
+                                        text: " and press on View Map button.",
+                                      ),
+                                    ],
                                   ),
-                                  const TextSpan(
+                                ),
+                                imagePath: "assets/2.png",
+                                color: const Color(0xFFF5E6CC),
+                              ),
+                              _buildStepContainer(
+                                stepNumber: "3",
+                                text: RichText(
+                                  text: TextSpan(
+                                    text: "Login with a wallet holding ",
+                                    style: const TextStyle(
+                                      fontFamily: "Audiowide",
+                                      fontSize: 12.0,
+                                      color: Colors.black54,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: "\$LAND",
+                                        style: const TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            _launchUrl(
+                                                "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol");
+                                          },
+                                      ),
+                                      const TextSpan(text: " tokens."),
+                                    ],
+                                  ),
+                                ),
+                                imagePath: "assets/3.png",
+                                color: const Color(0xFFF5E6CC),
+                              ),
+                              _buildStepContainer(
+                                stepNumber: "4",
+                                text: RichText(
+                                  text: TextSpan(
                                     text:
-                                        " drops are distributed equally among ",
-                                  ),
-                                  const TextSpan(
-                                    text: "all 3025",
-                                    style: TextStyle(
-                                      color: Colors.orange,
-                                      fontWeight: FontWeight.bold,
+                                        "Choose a land lot you wish and claim it using the coins in your wallet. ",
+                                    style: const TextStyle(
+                                      fontFamily: "Audiowide",
+                                      fontSize: 12.0,
+                                      color: Colors.black54,
                                     ),
+                                    children: [
+                                      TextSpan(
+                                        text: "Coins are not withdrawn",
+                                        style: const TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const TextSpan(
+                                        text:
+                                            "; you just need to hold them to claim land.",
+                                      ),
+                                    ],
                                   ),
-                                  const TextSpan(
-                                    text: " land lot owners.",
-                                  ),
-                                ],
+                                ),
+                                imagePath: "assets/4.png",
+                                color: const Color(0xFFF5E6CC),
                               ),
-                            ),
-                            color: const Color(0xFFF5E6CC),
+                              _buildStepContainer(
+                                stepNumber: "5",
+                                text: RichText(
+                                  text: TextSpan(
+                                    text: "Congratulations!",
+                                    style: const TextStyle(
+                                      fontFamily: "Audiowide",
+                                      fontSize: 12.0,
+                                      color: Colors.purple,
+                                    ),
+                                    children: [
+                                      const TextSpan(
+                                        text:
+                                            " You are now a proud owner of a land lot on Isla Solara. Wait for random drops of \$LAND tokens to your wallet as rewards for holding land.",
+                                        style: TextStyle(
+                                          fontFamily: "Audiowide",
+                                          fontSize: 12.0,
+                                          color: Colors.black54,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                imagePath: "assets/5.png",
+                                color: const Color(0xFFF5E6CC),
+                              ),
+                              _buildStepContainer(
+                                stepNumber: "Sidenote",
+                                text: RichText(
+                                  text: TextSpan(
+                                    text:
+                                        "Other players can buy the land from you. Strategize and pay attention if you get outbid. Each purchase increases the land value by ",
+                                    style: const TextStyle(
+                                      fontFamily: "Audiowide",
+                                      fontSize: 12.0,
+                                      color: Colors.black54,
+                                    ),
+                                    children: [
+                                      const TextSpan(
+                                        text: "1.5%",
+                                        style: TextStyle(
+                                          color: Colors.orange,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const TextSpan(text: ". "),
+                                      TextSpan(
+                                        text: "\$LAND",
+                                        style: const TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            _launchUrl(
+                                                "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol");
+                                          },
+                                      ),
+                                      const TextSpan(
+                                        text:
+                                            " drops are distributed equally among ",
+                                      ),
+                                      const TextSpan(
+                                        text: "all 3025",
+                                        style: TextStyle(
+                                          color: Colors.orange,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const TextSpan(
+                                        text: " land lot owners.",
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                imagePath: "assets/step_sidenote.png",
+                                color: const Color(0xFFF5E6CC),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -329,47 +394,6 @@ class _HowToPlayState extends State<HowToPlay> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildStepContainer({
-    required dynamic stepNumber,
-    required Widget text,
-    required Color color,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: const Color(0xFF704214),
-          width: 2,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF704214),
-            offset: const Offset(-4, 4),
-            blurRadius: 0,
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Step $stepNumber:",
-            style: const TextStyle(
-              fontFamily: "Audiowide",
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF704214),
-            ),
-          ),
-          const SizedBox(height: 8.0),
-          text,
-        ],
       ),
     );
   }

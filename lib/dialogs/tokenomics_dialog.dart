@@ -23,7 +23,7 @@ class _TokenomicsState extends State<Tokenomics> {
         width: 850,
         height: 600,
         decoration: BoxDecoration(
-          color: const Color(0xFF86b9e1),
+          color: const Color(0xFF404F89),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: const Color(0xFF704214),
@@ -102,7 +102,7 @@ class _TokenomicsState extends State<Tokenomics> {
                             color: const Color(0xFF704214),
                           ),
                         ),
-                        // Right Page with PageView
+                        // Audiowideht Page with PageView
                         Expanded(
                           flex: 1,
                           child: PageView(
@@ -129,7 +129,7 @@ class _TokenomicsState extends State<Tokenomics> {
                                       label: "3,025,000,000 \$LAND",
                                       icon: FontAwesomeIcons.coins,
                                       onTap: () {},
-                                      color: const Color(0xFF86b9e1),
+                                      color: const Color(0xFFFFC978),
                                       fontSize: 16.0,
                                       iconSize: 20.0,
                                     ),
