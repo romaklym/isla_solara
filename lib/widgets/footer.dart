@@ -75,9 +75,9 @@ class _FooterState extends State<Footer> {
                   ],
                 ),
                 CopyTextWidget(
-                  addressFontSize: 12.0,
+                  addressFontSize: 10.0,
                   addressIconSize: 12.0,
-                  contWidth: 420,
+                  contWidth: 380,
                   copyText: "0x532f27101965dd16442E59d40670FaF5eBB142E4",
                 ),
                 Row(

@@ -288,9 +288,11 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                             padding: const EdgeInsets.only(left: 16.0),
                             child: Text(
                               islandName ?? "Loading...",
+                              textAlign: TextAlign.center,
                               style: const TextStyle(
                                 fontFamily: "Audiowide",
-                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14.0,
                                 color: Color(0xFF704214),
                               ),
                               overflow: TextOverflow.ellipsis,
