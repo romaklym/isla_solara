@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'custom_button.dart';
 
 class SquareInfoDialog extends StatefulWidget {
@@ -190,6 +191,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
         }
       }
     } else {
+      final formatter = NumberFormat("#,##0.00", "en_US");
       Navigator.of(context).pop();
       // Insufficient funds warning
       messenger.showSnackBar(
@@ -209,8 +211,8 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
           content: Container(
             width: double.infinity,
             alignment: Alignment.center,
-            child: const Text(
-              "Insufficient funds to purchase!",
+            child: Text(
+              "Insufficient \$LAND! You need ${formatter.format(islandPrice! - widget.walletBalance).replaceAll(',', '\'')} more to purchase this lot.",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: "Audiowide",
