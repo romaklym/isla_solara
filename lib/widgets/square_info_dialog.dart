@@ -267,7 +267,7 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                   Container(
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Color(0xFF679a7d),
+                      color: Color(0xFFcda5e1),
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(16),
                       ),
@@ -287,14 +287,14 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                               fontFamily: "Audiowide",
                               fontWeight: FontWeight.bold,
                               fontSize: 16.0,
-                              color: Colors.white70,
+                              color: Color(0xFF704214),
                             ),
                           ),
                         ),
                         IconButton(
                           icon: FaIcon(
                             FontAwesomeIcons.xmark,
-                            color: Colors.white70,
+                            color: Colors.redAccent,
                             size: 16.0,
                           ),
                           onPressed: () => Navigator.of(context).pop(),
@@ -339,12 +339,13 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                             value:
                                 "${formatter.format(islandPrice ?? 0.0).replaceAll(',', '\'')} \$LAND",
                           ),
-                          _buildInfoRow(
-                            label: "Owner",
-                            value: currentOwner != null
-                                ? '${currentOwner!.substring(0, (14 ~/ 2) - 1)}...${currentOwner!.substring(currentOwner!.length - ((14 ~/ 2) - 1))}'
-                                : "Not Owned",
-                          ),
+                          if (currentOwner != "")
+                            _buildInfoRow(
+                              label: "Owner",
+                              value: currentOwner != null
+                                  ? '${currentOwner!.substring(0, (16 ~/ 2) - 1)}...${currentOwner!.substring(currentOwner!.length - ((16 ~/ 2) - 1))}'
+                                  : "Not Owned",
+                            ),
                           _buildInfoRow(
                             label: "Times Bought",
                             value: timesBought?.toString() ?? "0",

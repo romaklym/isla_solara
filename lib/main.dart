@@ -6,6 +6,7 @@ import 'package:taxhavistan/home_page.dart';
 import 'package:taxhavistan/responsive/mobile_screen.dart';
 import 'package:taxhavistan/responsive/responsive_layout.dart';
 import 'package:taxhavistan/screens/map_screen.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +25,7 @@ void main() async {
   FirebaseFirestore.instance.settings = const Settings(
     persistenceEnabled: true,
   );
+  setUrlStrategy(PathUrlStrategy());
   runApp(const MyApp());
 }
 
