@@ -345,61 +345,157 @@ class _MapScreenState extends State<MapScreen> {
         minScale: 0.6,
         maxScale: 5.0,
         child: SizedBox(
-          width: mapWidth,
-          height: mapHeight,
-          child: GestureDetector(
-            onTapDown: (details) {
-              final dx = details.localPosition.dx;
-              final dy = details.localPosition.dy;
+          width: mapWidth + 100, // Add space for numbering
+          height: mapHeight + 100, // Add space for numbering
+          child: Stack(
+            children: [
+              // Map Grid and Numbers
+              Positioned(
+                left: 50,
+                top: 50,
+                child: GestureDetector(
+                  onTapDown: (details) {
+                    final dx = details.localPosition.dx;
+                    final dy = details.localPosition.dy;
 
-              final col = (dx ~/ (mapWidth / cols)).clamp(0, cols - 1);
-              final row = (dy ~/ (mapHeight / rows)).clamp(0, rows - 1);
+                    final col = (dx ~/ (mapWidth / cols)).clamp(0, cols - 1);
+                    final row = (dy ~/ (mapHeight / rows)).clamp(0, rows - 1);
 
-              final index = row * cols + col + 1;
+                    final index = row * cols + col + 1;
 
-              setState(() {
-                tappedCol = col;
-                tappedRow = row;
-                tappedSquareIndex = index;
-              });
+                    setState(() {
+                      tappedCol = col;
+                      tappedRow = row;
+                      tappedSquareIndex = index;
+                    });
 
-              showDialog(
-                context: context,
-                builder: (ctx) {
-                  return SquareInfoDialog(
-                    squareNumber: tappedSquareIndex!,
-                    row: row,
-                    col: col,
-                    publicKey: _publicKey,
-                    walletBalance: _tokenBalance,
-                    cachedIslandData: cachedIslandData,
-                  );
-                },
-              );
-            },
-            child: SizedBox(
-              width: mapWidth,
-              height: mapHeight,
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: Image.asset(
-                      'assets/final_map.png',
-                      fit: BoxFit.contain,
+                    showDialog(
+                      context: context,
+                      builder: (ctx) {
+                        return SquareInfoDialog(
+                          squareNumber: tappedSquareIndex!,
+                          row: row + 1,
+                          col: col + 1,
+                          publicKey: _publicKey,
+                          walletBalance: _tokenBalance,
+                          cachedIslandData: cachedIslandData,
+                        );
+                      },
+                    );
+                  },
+                  child: SizedBox(
+                    width: mapWidth,
+                    height: mapHeight,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          child: Image.asset(
+                            'assets/final_map.png',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        CustomPaint(
+                          size: Size(mapWidth, mapHeight),
+                          painter: IslandPainter(
+                            rows: rows,
+                            cols: cols,
+                            tappedCol: tappedCol,
+                            tappedRow: tappedRow,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  CustomPaint(
-                    size: Size(mapWidth, mapHeight),
-                    painter: IslandPainter(
-                      rows: rows,
-                      cols: cols,
-                      tappedCol: tappedCol,
-                      tappedRow: tappedRow,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+              // Column Numbers (Top)
+              Positioned(
+                top: 20, // Adjust to align with the grid
+                left: 50,
+                child: Row(
+                  children: List.generate(
+                    cols,
+                    (col) => Container(
+                      width: mapWidth / cols,
+                      alignment: Alignment.center,
+                      child: Text(
+                        (col + 1).toString(),
+                        style: const TextStyle(
+                          fontFamily: "Audiowide",
+                          fontSize: 10,
+                          color: Colors.black45,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // Row Numbers (Left)
+              Positioned(
+                top: 50,
+                left: 20, // Adjust to align with the grid
+                child: Column(
+                  children: List.generate(
+                    rows,
+                    (row) => Container(
+                      height: mapHeight / rows,
+                      alignment: Alignment.center,
+                      child: Text(
+                        (row + 1).toString(),
+                        style: const TextStyle(
+                          fontFamily: "Audiowide",
+                          fontSize: 10,
+                          color: Colors.black45,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 20, // Align below grid
+                left: 50, // Align to grid start
+                child: Row(
+                  children: List.generate(
+                    cols,
+                    (col) => Container(
+                      width: mapWidth / cols,
+                      alignment: Alignment.center,
+                      child: Text(
+                        (col + 1).toString(),
+                        style: const TextStyle(
+                          fontFamily: "Audiowide",
+                          fontSize: 10,
+                          color: Colors.black45,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // Row Numbers (Right)
+              Positioned(
+                top: 50, // Align to grid start
+                right: 20, // Align to right of grid
+                child: Column(
+                  children: List.generate(
+                    rows,
+                    (row) => Container(
+                      height: mapHeight / rows,
+                      alignment: Alignment.center,
+                      child: Text(
+                        (row + 1).toString(),
+                        style: const TextStyle(
+                          fontFamily: "Audiowide",
+                          fontSize: 10,
+                          color: Colors.black45,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -428,7 +524,7 @@ class IslandPainter extends CustomPainter {
     final gridPaint = Paint()
       ..color = Colors.black54
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 0.02;
+      ..strokeWidth = 0.03;
 
     // Shadow effect for 3D look
     final shadowPaint = Paint()
