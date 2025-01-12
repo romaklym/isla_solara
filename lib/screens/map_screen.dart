@@ -217,39 +217,41 @@ class _MapScreenState extends State<MapScreen> {
                           const Tokenomics(),
                         ),
                       ),
-                      const SizedBox(width: 16.0),
-                      CustomButton(
-                        icon: FontAwesomeIcons.chartLine,
-                        label: "Stats",
-                        color: const Color(0xFFf8c3b6),
-                        onTap: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              width: 300,
-                              behavior: SnackBarBehavior.floating,
-                              backgroundColor: const Color(0xFFf8c3b6),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                side: const BorderSide(
-                                    color: Colors.black54, width: 2),
-                              ),
-                              content: Container(
-                                alignment: Alignment.center,
-                                child: const Text(
-                                  "Statistics are coming soon! Stay tuned.",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: "Audiowide",
-                                    color: Colors.black54,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
+                      if (_publicKey.isNotEmpty && _publicKey != "Unknown") ...[
+                        const SizedBox(width: 16.0),
+                        CustomButton(
+                          icon: FontAwesomeIcons.chartLine,
+                          label: "Stats",
+                          color: const Color(0xFFf8c3b6),
+                          onTap: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                width: 300,
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: const Color(0xFFf8c3b6),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  side: const BorderSide(
+                                      color: Colors.black54, width: 2),
+                                ),
+                                content: Container(
+                                  alignment: Alignment.center,
+                                  child: const Text(
+                                    "Statistics are coming soon! Stay tuned.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: "Audiowide",
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
+                            );
+                          },
+                        ),
+                      ]
                     ],
                   ),
                 ),
@@ -265,6 +267,40 @@ class _MapScreenState extends State<MapScreen> {
                   padding: const EdgeInsets.only(right: 16.0),
                   child: Row(
                     children: [
+                      if (_publicKey.isEmpty) ...[
+                        CustomButton(
+                          icon: FontAwesomeIcons.chartLine,
+                          label: "Stats",
+                          color: const Color(0xFFf8c3b6),
+                          onTap: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                width: 300,
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: const Color(0xFFf8c3b6),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  side: const BorderSide(
+                                      color: Colors.black54, width: 2),
+                                ),
+                                content: Container(
+                                  alignment: Alignment.center,
+                                  child: const Text(
+                                    "Statistics are coming soon! Stay tuned.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: "Audiowide",
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                       if (_publicKey.isNotEmpty && _publicKey != "Unknown") ...[
                         CustomButton(
                           color: const Color(0xFF666A75),

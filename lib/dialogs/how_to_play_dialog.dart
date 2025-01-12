@@ -100,7 +100,7 @@ class _HowToPlayState extends State<HowToPlay> {
         height: height,
         decoration: BoxDecoration(
           color: Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: const Color(0xFF704214),
             width: 2.0,
@@ -114,7 +114,7 @@ class _HowToPlayState extends State<HowToPlay> {
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(16),
           child: Stack(
             children: [
               // Background Image
@@ -134,17 +134,15 @@ class _HowToPlayState extends State<HowToPlay> {
                 children: [
                   // Title Bar
                   Container(
-                    height: 40,
+                    height: 50,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFFC978),
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(8),
+                      color: Color(0xFFcda5e1),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(16),
                       ),
-                      border: const Border(
-                        bottom: BorderSide(
-                          color: Color(0xFF704214),
-                          width: 2,
-                        ),
+                      border: Border.all(
+                        color: const Color(0xFF704214),
+                        width: 1.0,
                       ),
                     ),
                     child: Row(
@@ -155,6 +153,7 @@ class _HowToPlayState extends State<HowToPlay> {
                             "How To Play?",
                             style: TextStyle(
                               fontFamily: "Audiowide",
+                              fontWeight: FontWeight.bold,
                               fontSize: 18.0,
                               color: Color(0xFF704214),
                             ),
@@ -167,7 +166,7 @@ class _HowToPlayState extends State<HowToPlay> {
                             color: Colors.redAccent,
                           ),
                           onPressed: () => Navigator.of(context).pop(),
-                          iconSize: 14.0,
+                          iconSize: 16.0,
                         ),
                       ],
                     ),
