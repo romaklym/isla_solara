@@ -317,7 +317,7 @@ class _HowToPlayState extends State<HowToPlay> {
                                     children: [
                                       const TextSpan(
                                         text:
-                                            " You are now a proud owner of a land lot on Isla Solara. Wait for random drops of \$LAND tokens to your wallet as rewards for holding land.",
+                                            " You are now a proud owner of a land lot on Isla Solara.",
                                         style: TextStyle(
                                           fontFamily: "Audiowide",
                                           fontSize: 12.0,
