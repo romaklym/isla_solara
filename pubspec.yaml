@@ -47,6 +47,7 @@ dependencies:
   html: ^0.15.5
   fl_chart: ^0.70.1
   intl: ^0.20.1
+  flutter_gradient_animation_text: ^1.0.2
 
 
 dev_dependencies:

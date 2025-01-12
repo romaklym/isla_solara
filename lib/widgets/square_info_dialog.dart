@@ -42,7 +42,6 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
   Future<void> _loadIslandName() async {
     if (widget.cachedIslandData.containsKey(widget.squareNumber)) {
       // Already cached; set local state from cache (no Firestore read!)
-      print("Using cached data for island #${widget.squareNumber}");
       final cachedData = widget.cachedIslandData[widget.squareNumber]!;
       setState(() {
         islandName = cachedData['name'];
@@ -51,10 +50,6 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
         timesBought = cachedData['times_bought'];
         islandType = cachedData['type'];
       });
-
-      // Print only if you really want to confirm a rebuild from cache
-      // print("Rebuild from cache");
-
       return;
     }
 
@@ -74,8 +69,6 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
           currentOwner = data['current_owner'] ?? 'Unknown Owner';
           timesBought = data['times_bought'] ?? 0;
           islandType = data['type'] ?? 0;
-
-          print("Rebuild from Firestore fetch");
         });
       } else {
         setState(() {
@@ -89,6 +82,8 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
       print("Error fetching island data from Firestore: $e");
     }
   }
+
+  final formatter = NumberFormat("#,##0.00", "en_US");
 
   Future<void> _handleIslandPurchase() async {
     final messenger = ScaffoldMessenger.of(context); // Create local reference
@@ -191,7 +186,6 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
         }
       }
     } else {
-      final formatter = NumberFormat("#,##0.00", "en_US");
       Navigator.of(context).pop();
       // Insufficient funds warning
       messenger.showSnackBar(
@@ -230,33 +224,36 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      insetPadding: EdgeInsets.zero,
+      insetPadding: EdgeInsets.symmetric(horizontal: 20),
+      backgroundColor: Colors.transparent,
       child: Container(
         width: 350,
-        height: 550,
+        height: 500,
         decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: const Color(0xFF704214),
-            width: 2.0,
+          gradient: LinearGradient(
+            colors: [Color(0xFF86b9e1), Color(0xFFcda5e1)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
+          borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
               color: const Color(0xFF704214),
-              offset: const Offset(-5, 5),
+              offset: const Offset(-9, 9),
               blurRadius: 0,
             ),
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(16),
           child: Stack(
             children: [
               Positioned.fill(
                 child: Image.asset(
                   'assets/positioned.png',
                   fit: BoxFit.cover,
+                  color: Colors.black.withValues(alpha: 0.1),
+                  colorBlendMode: BlendMode.darken,
                 ),
               ),
               Positioned.fill(
@@ -268,141 +265,149 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                 children: [
                   // Title Bar
                   Container(
-                    height: 40,
+                    height: 50,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFFC978),
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(8),
+                      color: Color(0xFF679a7d),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(16),
                       ),
-                      border: const Border(
-                        bottom: BorderSide(
-                          color: Color(0xFF704214),
-                          width: 2,
-                        ),
+                      border: Border.all(
+                        color: const Color(0xFF704214),
+                        width: 1.0,
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Text(
-                              islandName ?? "Loading...",
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontFamily: "Audiowide",
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14.0,
-                                color: Color(0xFF704214),
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16.0),
+                          child: Text(
+                            islandName ?? "Loading...",
+                            style: TextStyle(
+                              fontFamily: "Audiowide",
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.0,
+                              color: Colors.white70,
                             ),
                           ),
-                          IconButton(
-                            icon: const FaIcon(
-                              FontAwesomeIcons.xmark,
-                              color: Colors.redAccent,
+                        ),
+                        IconButton(
+                          icon: FaIcon(
+                            FontAwesomeIcons.xmark,
+                            color: Colors.white70,
+                            size: 16.0,
+                          ),
+                          onPressed: () => Navigator.of(context).pop(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // Content Area
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            height: 200,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: Color(0xFF704214),
+                                width: 2,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(4, 4),
+                                  blurRadius: 6,
+                                ),
+                              ],
                             ),
-                            onPressed: () => Navigator.of(context).pop(),
-                            iconSize: 14.0,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.asset(
+                                'assets/card.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                          _buildInfoRow(
+                            label: "Price",
+                            value:
+                                "${formatter.format(islandPrice ?? 0.0).replaceAll(',', '\'')} \$LAND",
+                          ),
+                          _buildInfoRow(
+                            label: "Owner",
+                            value: currentOwner != null
+                                ? '${currentOwner!.substring(0, (14 ~/ 2) - 1)}...${currentOwner!.substring(currentOwner!.length - ((14 ~/ 2) - 1))}'
+                                : "Not Owned",
+                          ),
+                          _buildInfoRow(
+                            label: "Times Bought",
+                            value: timesBought?.toString() ?? "0",
+                          ),
+                          _buildInfoRow(
+                            label: "Coordinates",
+                            value:
+                                "${widget.row.toStringAsFixed(0)}, ${widget.col.toStringAsFixed(0)}",
                           ),
                         ],
                       ),
                     ),
                   ),
-                  // Content Area
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 50.0),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                // Show image based on the island type
-                                if (islandType != null)
-                                  Container(
-                                    width: 320,
-                                    height: 220,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: const Color(0xFF704214),
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(6),
-                                      child: Image.asset(
-                                        'assets/card.png',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                const SizedBox(height: 16),
-                                Text(
-                                  currentOwner == null || currentOwner!.isEmpty
-                                      ? "Lot hasn't been sold yet"
-                                      : "Current Owner: $currentOwner",
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontFamily: "Audiowide",
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 10.0,
-                                    color: Color(0xFF704214),
-                                  ),
-                                ),
-                                Text(
-                                  "Lot #${widget.squareNumber}",
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontFamily: "Audiowide",
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14.0,
-                                    color: Color(0xFF704214),
-                                  ),
-                                ),
-                                Text(
-                                  "Coordinates: ${widget.row.toStringAsFixed(0)}, ${widget.col.toStringAsFixed(0)}",
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black54,
-                                    fontFamily: "Audiowide",
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: CustomButton(
-                              color: const Color(0xFF21c21c),
-                              label: islandPrice?.toStringAsFixed(2),
-                              icon: Icons.attach_money,
-                              onTap: () async {
-                                _handleIslandPurchase();
-                              },
-                              fontSize: 16.0,
-                              iconSize: 20.0,
-                            ),
-                          ),
-                        )
-                      ],
+                  // Action Button
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: CustomButton(
+                      color: Color(0xFF21c21c),
+                      fontSize: 14.0,
+                      iconSize: 18.0,
+                      label:
+                          "${formatter.format(islandPrice ?? 0.0).replaceAll(',', '\'')} \$LAND",
+                      // icon: Icons.attach_money,
+                      onTap: () async {
+                        _handleIslandPurchase();
+                      },
                     ),
                   ),
+                  SizedBox(height: 16),
                 ],
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildInfoRow({required String label, required String value}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "$label:",
+            style: TextStyle(
+              fontFamily: "Audiowide",
+              fontSize: 14.0,
+              color: Colors.black87,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              fontFamily: "Audiowide",
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF704214),
+            ),
+          ),
+        ],
       ),
     );
   }

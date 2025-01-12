@@ -1,10 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gradient_animation_text/flutter_gradient_animation_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:taxhavistan/widgets/footer.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -67,56 +66,42 @@ class _MainScreenState extends State<MainScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min, // Minimize height of the Column
               children: [
-                RichText(
-                  text: TextSpan(
-                    text: "Own the ",
-                    style: const TextStyle(
+                GradientAnimationText(
+                  text: Text(
+                    "Own the \$LAND. Earn the Rewards.",
+                    style: TextStyle(
                       fontFamily: "Audiowide",
+                      fontSize: 28,
                       fontWeight: FontWeight.w900,
-                      fontSize: 28.0,
-                      color: Color(0xFF2f124a),
                     ),
-                    children: [
-                      TextSpan(
-                        text: "\$LAND",
-                        style: const TextStyle(
-                          color:
-                              Color(0xFF61821C), // Highlight the clickable text
-                          decoration:
-                              TextDecoration.underline, // Optional underline
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () async {
-                            const url =
-                                "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol";
-                            if (await canLaunchUrl(Uri.parse(url))) {
-                              await launchUrl(Uri.parse(url),
-                                  mode: LaunchMode.externalApplication);
-                            }
-                          },
-                      ),
-                      TextSpan(
-                        text: ". Earn the Rewards.",
-                        style: const TextStyle(
-                          fontFamily: "Audiowide",
-                          fontWeight: FontWeight.w900,
-                          fontSize: 28.0,
-                          color: Color(0xFF2f124a),
-                        ),
-                      ),
-                    ],
                   ),
+                  duration: const Duration(seconds: 10), // Animation duration
+                  colors: const [
+                    Colors.greenAccent,
+                    Colors.lightBlueAccent,
+                    Colors.purpleAccent,
+                    Colors.pinkAccent,
+                    Colors.yellowAccent,
+                  ],
                 ),
-                const SizedBox(height: 16.0),
-                Text(
-                  "Claim land, earn passive income, and compete for the ultimate prize pool.",
-                  style: const TextStyle(
-                    fontFamily: "Audiowide",
-                    fontWeight: FontWeight.w900,
-                    fontSize: 18.0,
-                    color: Color(0xFF2f124a),
+                const SizedBox(height: 8.0),
+                GradientAnimationText(
+                  text: Text(
+                    "Claim land, earn passive income, and compete for the ultimate prize pool.",
+                    style: TextStyle(
+                      fontFamily: "Audiowide",
+                      fontSize: 18,
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
-                  textAlign: TextAlign.center,
+                  duration: const Duration(seconds: 10), // Animation duration
+                  colors: const [
+                    Color(0xFF006992),
+                    Color(0xFF298AAA),
+                    Color(0xFF51ACC2),
+                    Color(0xFF7ACDDA),
+                    Color(0xFFA2EEF2),
+                  ],
                 ),
                 const SizedBox(height: 32.0),
                 CustomButton(
@@ -142,10 +127,10 @@ class _RetroGridPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.black.withAlpha(25)
+      ..color = Colors.black.withValues(alpha: 0.1)
       ..strokeWidth = 0.5;
 
-    const gridSpacing = 15.0;
+    const gridSpacing = 20.0;
 
     for (double x = 0; x <= size.width; x += gridSpacing) {
       canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
