@@ -120,7 +120,7 @@ class _MapScreenState extends State<MapScreen> {
       }
 
       // Fetch token balance
-      const mintAddress = "AUdUEc98MGfEHJiJfCgMaW8gKdcfNDio8BFzGKBwjztC";
+      const mintAddress = "ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY";
       final tokenBalance =
           await _walletService.getTokenBalance(publicKey, mintAddress);
 
