@@ -225,7 +225,7 @@ class _HowToPlayState extends State<HowToPlay> {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: "islasolara.com",
+                                        text: "taxhavistan.com",
                                         style: const TextStyle(
                                           color: Colors.green,
                                           fontWeight: FontWeight.bold,
@@ -233,7 +233,7 @@ class _HowToPlayState extends State<HowToPlay> {
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
                                             _launchUrl(
-                                                "https://islasolara.com");
+                                                "https://taxhavistan.com");
                                           },
                                       ),
                                       const TextSpan(

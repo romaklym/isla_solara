@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:islasolara/dialogs/tokenomics_mobile.dart';
-import 'package:islasolara/widgets/custom_button.dart';
+import 'package:taxhavistan/dialogs/tokenomics_mobile.dart';
+import 'package:taxhavistan/widgets/custom_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppBarMobile extends StatefulWidget {
@@ -64,7 +64,7 @@ class _AppBarMobileState extends State<AppBarMobile> {
                       iconSize: 16.0,
                       color: const Color(0xFF718DAC),
                       onTap: () async {
-                        const url = "https://x.com/islasolara";
+                        const url = "https://x.com/taxhavistan";
                         if (await canLaunchUrl(Uri.parse(url))) {
                           await launchUrl(Uri.parse(url),
                               mode: LaunchMode.externalApplication);
@@ -79,7 +79,7 @@ class _AppBarMobileState extends State<AppBarMobile> {
                       iconSize: 16.0,
                       color: const Color(0xFF86aed1),
                       onTap: () async {
-                        const url = "https://t.me/islasolara";
+                        const url = "https://t.me/taxhavistan";
                         if (await canLaunchUrl(Uri.parse(url))) {
                           await launchUrl(Uri.parse(url),
                               mode: LaunchMode.externalApplication);
