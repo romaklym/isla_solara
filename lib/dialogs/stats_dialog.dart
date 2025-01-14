@@ -73,6 +73,7 @@ class _StatsDialogState extends State<StatsDialog> {
 
   /// Generates cheapestLot, mostExpensiveLot, and ownedLots from the cache.
   void _generateStatsFromCache() {
+    // Map cached data into a list of island objects
     final islands = widget.cachedIslandData.entries.map((entry) {
       return {"id": entry.key, ...entry.value};
     }).toList();
@@ -87,25 +88,25 @@ class _StatsDialogState extends State<StatsDialog> {
     }
 
     setState(() {
-      // Filter islands with valid prices to avoid errors
+      // Ensure we are working with lots that have valid prices
       final validIslands =
           islands.where((island) => island['price'] != null).toList();
 
-      // Find the cheapest lot
+      // Determine the cheapest lot
       cheapestLot = validIslands.reduce((a, b) {
         final priceA = a['price'] as num;
         final priceB = b['price'] as num;
         return priceA < priceB ? a : b;
       });
 
-      // Find the most expensive lot
+      // Determine the most expensive lot
       mostExpensiveLot = validIslands.reduce((a, b) {
         final priceA = a['price'] as num;
         final priceB = b['price'] as num;
         return priceA > priceB ? a : b;
       });
 
-      // Find lots owned by the user
+      // Find lots owned by the current user
       ownedLots = validIslands
           .where((island) => island['current_owner'] == widget.publicKey)
           .toList();

@@ -190,7 +190,7 @@ class _OwnedDialogState extends State<OwnedDialog> {
                             fontFamily: "Audiowide",
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF704214),
+                            color: Colors.black87,
                           ),
                         ),
                         Text(
@@ -262,7 +262,7 @@ class _OwnedDialogState extends State<OwnedDialog> {
               fontFamily: "Audiowide",
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: const Color(0xFF704214),
+              color: Colors.black87,
             ),
           ),
           const SizedBox(height: 8),
