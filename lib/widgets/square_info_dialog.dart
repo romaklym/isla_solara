@@ -86,12 +86,47 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
   final formatter = NumberFormat("#,##0.00", "en_US");
 
   Future<void> _handleIslandPurchase() async {
-    final messenger = ScaffoldMessenger.of(context); // Create local reference
+    final messenger = ScaffoldMessenger.of(context);
     final price = islandPrice ?? 0.0;
 
     if (widget.walletBalance >= price) {
       try {
-        // Perform the Firestore update
+        // Check if the user already owns any land
+        final snapshot = await FirebaseFirestore.instance
+            .collection('islands')
+            .where('current_owner', isEqualTo: widget.publicKey)
+            .get();
+
+        if (snapshot.docs.isNotEmpty) {
+          // User already owns a lot
+          if (mounted) {
+            Navigator.of(context).pop();
+            messenger.showSnackBar(
+              SnackBar(
+                width: MediaQuery.of(context).size.width / 3,
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: const Color(0xFFe85229),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: const BorderSide(color: Color(0xFF704214), width: 2),
+                ),
+                content: const Text(
+                  "You can only own one lot. Purchase denied.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: "Audiowide",
+                    color: Colors.white70,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            );
+          }
+          return;
+        }
+
+        // Proceed with the transaction if user doesn't own any lot
         await FirebaseFirestore.instance.runTransaction((transaction) async {
           final docRef = FirebaseFirestore.instance
               .collection('islands')
@@ -111,74 +146,51 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
           }
         });
 
-        // Show success snack bar
+        // Show success message
         if (mounted) {
+          Navigator.of(context).pop();
           messenger.showSnackBar(
             SnackBar(
               width: MediaQuery.of(context).size.width / 3,
               behavior: SnackBarBehavior.floating,
               backgroundColor: const Color(0xFF21c21c),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                  8.0,
-                ),
-                side: const BorderSide(
-                  color: Color(0xFF704214),
-                  width: 2,
-                ),
+                borderRadius: BorderRadius.circular(8),
+                side: const BorderSide(color: Color(0xFF704214), width: 2),
               ),
-              content: Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: Text(
-                  "Congratulations! You are now a proud owner of Lot#${widget.squareNumber.toString()}",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: "Audiowide",
-                    color: Colors.white70,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
+              content: Text(
+                "Congratulations! You are now a proud owner of Lot#${widget.squareNumber.toString()}",
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontFamily: "Audiowide",
+                  color: Colors.white70,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
                 ),
               ),
             ),
           );
         }
-
-        // Close the dialog safely
-        if (mounted) {
-          Navigator.of(context)
-              .pop(); // Ensure mounted before calling Navigator
-        }
       } catch (error) {
-        // Check if widget is still mounted before showing error
         if (mounted) {
+          Navigator.of(context).pop();
           messenger.showSnackBar(
             SnackBar(
               width: MediaQuery.of(context).size.width / 3,
               behavior: SnackBarBehavior.floating,
-              backgroundColor: Color(0xFFe85229),
+              backgroundColor: const Color(0xFFe85229),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                  8.0,
-                ),
-                side: const BorderSide(
-                  color: Color(0xFF704214),
-                  width: 2,
-                ),
+                borderRadius: BorderRadius.circular(8),
+                side: const BorderSide(color: Color(0xFF704214), width: 2),
               ),
-              content: Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: Text(
-                  "Error: $error",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: "Audiowide",
-                    color: Colors.white70,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
+              content: Text(
+                "Error: $error",
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontFamily: "Audiowide",
+                  color: Colors.white70,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
                 ),
               ),
             ),
@@ -186,34 +198,25 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
         }
       }
     } else {
+      // Insufficient funds
       Navigator.of(context).pop();
-      // Insufficient funds warning
       messenger.showSnackBar(
         SnackBar(
           width: MediaQuery.of(context).size.width / 3,
           behavior: SnackBarBehavior.floating,
-          backgroundColor: Color(0xFFe85229),
+          backgroundColor: const Color(0xFFe85229),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              8.0,
-            ),
-            side: const BorderSide(
-              color: Color(0xFF704214),
-              width: 2,
-            ),
+            borderRadius: BorderRadius.circular(8),
+            side: const BorderSide(color: Color(0xFF704214), width: 2),
           ),
-          content: Container(
-            width: double.infinity,
-            alignment: Alignment.center,
-            child: Text(
-              "Insufficient \$LAND! You need ${formatter.format(islandPrice! - widget.walletBalance).replaceAll(',', '\'')} more to purchase this lot.",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: "Audiowide",
-                color: Colors.white70,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
+          content: Text(
+            "Insufficient \$LAND! You need ${formatter.format(islandPrice! - widget.walletBalance).replaceAll(',', '\'')} more to purchase this lot.",
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontFamily: "Audiowide",
+              color: Colors.white70,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
             ),
           ),
         ),
