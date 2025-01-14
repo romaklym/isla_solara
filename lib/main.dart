@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:taxhavistan/home_page.dart';
-import 'package:taxhavistan/responsive/mobile_screen.dart';
-import 'package:taxhavistan/responsive/responsive_layout.dart';
-import 'package:taxhavistan/screens/map_screen.dart';
+import 'package:islasolara/home_page.dart';
+import 'package:islasolara/responsive/mobile_screen.dart';
+import 'package:islasolara/responsive/responsive_layout.dart';
+import 'package:islasolara/screens/map_screen.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() async {

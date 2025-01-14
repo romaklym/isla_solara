@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:taxhavistan/dialogs/how_to_play_dialog.dart';
-import 'package:taxhavistan/widgets/app_bar_mobile.dart';
-import 'package:taxhavistan/widgets/custom_button.dart';
-import 'package:taxhavistan/widgets/footer_mobile.dart';
+import 'package:islasolara/dialogs/how_to_play_dialog.dart';
+import 'package:islasolara/widgets/app_bar_mobile.dart';
+import 'package:islasolara/widgets/custom_button.dart';
+import 'package:islasolara/widgets/footer_mobile.dart';
 
 class MobileScreen extends StatefulWidget {
   const MobileScreen({super.key});

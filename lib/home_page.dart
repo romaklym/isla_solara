@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:taxhavistan/responsive/main_screen.dart';
-import 'package:taxhavistan/responsive/mobile_screen.dart';
-import 'package:taxhavistan/responsive/responsive_layout.dart';
+import 'package:islasolara/responsive/main_screen.dart';
+import 'package:islasolara/responsive/mobile_screen.dart';
+import 'package:islasolara/responsive/responsive_layout.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

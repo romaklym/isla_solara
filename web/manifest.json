@@ -1,11 +1,11 @@
 {
-    "name": "taxhavistan",
-    "short_name": "taxhavistan",
+    "name": "islasolara",
+    "short_name": "islasolara",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Own the $LAND. Earn the Rewards.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

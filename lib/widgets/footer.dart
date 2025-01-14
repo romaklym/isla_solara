@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:taxhavistan/dialogs/how_to_play_dialog.dart';
-import 'package:taxhavistan/dialogs/tokenomics_dialog.dart';
-import 'package:taxhavistan/widgets/buy_button.dart';
-import 'package:taxhavistan/widgets/copy_text.dart';
-import 'package:taxhavistan/widgets/custom_button.dart';
+import 'package:islasolara/dialogs/how_to_play_dialog.dart';
+import 'package:islasolara/dialogs/tokenomics_dialog.dart';
+import 'package:islasolara/widgets/buy_button.dart';
+import 'package:islasolara/widgets/copy_text.dart';
+import 'package:islasolara/widgets/custom_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Footer extends StatefulWidget {
@@ -121,7 +121,7 @@ class _FooterState extends State<Footer> {
                       iconSize: 16.0,
                       color: const Color(0xFF718DAC),
                       onTap: () async {
-                        const url = "https://x.com/taxhavistan";
+                        const url = "https://x.com/islasolara";
                         if (await canLaunchUrl(Uri.parse(url))) {
                           await launchUrl(Uri.parse(url),
                               mode: LaunchMode.externalApplication);
@@ -136,7 +136,7 @@ class _FooterState extends State<Footer> {
                       iconSize: 16.0,
                       color: const Color(0xFF86aed1),
                       onTap: () async {
-                        const url = "https://t.me/taxhavistan";
+                        const url = "https://t.me/islasolara";
                         if (await canLaunchUrl(Uri.parse(url))) {
                           await launchUrl(Uri.parse(url),
                               mode: LaunchMode.externalApplication);

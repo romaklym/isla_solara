@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taxhavistan/widgets/buy_button.dart';
-import 'package:taxhavistan/widgets/custom_button.dart';
+import 'package:islasolara/widgets/buy_button.dart';
+import 'package:islasolara/widgets/custom_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FooterMobile extends StatefulWidget {

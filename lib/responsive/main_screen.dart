@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gradient_animation_text/flutter_gradient_animation_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:taxhavistan/widgets/footer.dart';
-import 'package:taxhavistan/widgets/custom_button.dart';
+import 'package:islasolara/widgets/footer.dart';
+import 'package:islasolara/widgets/custom_button.dart';
 import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatefulWidget {
