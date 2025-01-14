@@ -3,18 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
-// An optional extension to safely find the first matching entry or return null:
-extension FirstWhereOrNull<K, V> on Iterable<MapEntry<K, V>> {
-  MapEntry<K, V>? firstWhereOrNull(bool Function(MapEntry<K, V>) test) {
-    for (var element in this) {
-      if (test(element)) {
-        return element;
-      }
-    }
-    return null;
-  }
-}
-
 class OwnedDialog extends StatefulWidget {
   final String publicKey;
   final double walletBalance;
@@ -53,32 +41,13 @@ class _OwnedDialogState extends State<OwnedDialog> {
     return '${owner.substring(0, visibleLength)}...${owner.substring(owner.length - visibleLength)}';
   }
 
-  /// Looks for the owned lot in the local cache first. If not found, queries Firestore.
   Future<void> _findOwnedLot() async {
-    // If we've already found (and set) the ownedLot, no need to do anything.
-    if (ownedLot != null) {
-      return;
-    }
-
-    // 1) Try to find the lot in our local cache
-    final cachedEntry = widget.cachedIslandData.entries.firstWhereOrNull(
-      (entry) => entry.value['current_owner'] == widget.publicKey,
-    );
-
-    if (cachedEntry != null) {
-      // Found it in cache; just use that!
-      setState(() {
-        ownedLot = {"id": cachedEntry.key, ...cachedEntry.value};
-      });
-      return;
-    }
-
-    // 2) If not in cache, then query Firestore
     try {
+      // Query Firestore for a lot where `current_owner` matches the user's public key
       final snapshot = await FirebaseFirestore.instance
           .collection('islands')
           .where('current_owner', isEqualTo: widget.publicKey)
-          .limit(1)
+          .limit(1) // Limit to the first matching document
           .get();
 
       if (snapshot.docs.isNotEmpty) {
@@ -86,11 +55,16 @@ class _OwnedDialogState extends State<OwnedDialog> {
         final data = doc.data();
         final id = int.tryParse(doc.id) ?? 0;
 
-        // Populate our cache so we don't have to query Firestore again
+        // Cache the owned lot to avoid redundant queries
         widget.cachedIslandData[id] = data;
 
         setState(() {
           ownedLot = {"id": id, ...data};
+        });
+      } else {
+        // No owned lot found
+        setState(() {
+          ownedLot = null;
         });
       }
     } catch (e) {
@@ -144,7 +118,11 @@ class _OwnedDialogState extends State<OwnedDialog> {
                   Container(
                     height: 50,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF404F89),
+                      gradient: LinearGradient(
+                        colors: [Color(0xFF86b9e1), Color(0xFFcda5e1)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(16),
                       ),

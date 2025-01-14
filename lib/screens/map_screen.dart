@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:taxhavistan/dialogs/how_to_play_dialog.dart';
 import 'package:taxhavistan/dialogs/owned_land_dialog.dart';
-import 'package:taxhavistan/dialogs/stats_dialog.dart';
 import 'package:taxhavistan/dialogs/tokenomics_dialog.dart';
 import 'package:taxhavistan/services/wallet_services.dart';
 import 'package:taxhavistan/widgets/custom_button.dart';
@@ -222,21 +221,9 @@ class _MapScreenState extends State<MapScreen> {
                       if (_publicKey.isNotEmpty && _publicKey != "Unknown") ...[
                         const SizedBox(width: 16.0),
                         CustomButton(
-                          icon: FontAwesomeIcons.chartLine,
-                          label: "Stats",
-                          color: const Color(0xFFf8c3b6),
-                          onTap: () => _openDialog(
-                            StatsDialog(
-                              publicKey: _publicKey,
-                              cachedIslandData: cachedIslandData,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 16.0),
-                        CustomButton(
                           icon: FontAwesomeIcons.passport,
                           label: "Owned",
-                          color: const Color(0xFF404F89),
+                          color: const Color(0xFF86b9e1),
                           onTap: () => _openDialog(
                             OwnedDialog(
                               publicKey: _publicKey,
@@ -261,22 +248,24 @@ class _MapScreenState extends State<MapScreen> {
                   padding: const EdgeInsets.only(right: 16.0),
                   child: Row(
                     children: [
-                      if (_publicKey.isEmpty) ...[
-                        CustomButton(
-                          icon: FontAwesomeIcons.chartLine,
-                          label: "Stats",
-                          color: const Color(0xFFf8c3b6),
-                          onTap: () => _openDialog(
-                            StatsDialog(
-                              publicKey: _publicKey,
-                              cachedIslandData: cachedIslandData,
-                            ),
-                          ),
-                        ),
-                      ],
+                      CustomButton(
+                        color: const Color(0xFF21c21c),
+                        icon: FontAwesomeIcons.cartShopping,
+                        onTap: () async {
+                          const url =
+                              "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol";
+                          if (await canLaunchUrl(Uri.parse(url))) {
+                            await launchUrl(Uri.parse(url),
+                                mode: LaunchMode.externalApplication);
+                          }
+                        },
+                        label: "Buy \$LAND",
+                      ),
                       if (_publicKey.isNotEmpty && _publicKey != "Unknown") ...[
+                        const SizedBox(width: 16.0),
                         CustomButton(
-                          color: const Color(0xFF666A75),
+                          color: const Color(0xFF16d2bb),
+                          icon: FontAwesomeIcons.wallet,
                           onTap: () async {
                             const url =
                                 "https://raydium.io/swap/?inputMint=2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv&outputMint=sol";
@@ -286,7 +275,7 @@ class _MapScreenState extends State<MapScreen> {
                             }
                           },
                           label:
-                              "\$LAND: ${formatter.format(_tokenBalance).replaceAll(',', '\'')}",
+                              "${formatter.format(_tokenBalance).replaceAll(',', '\'')} \$LAND",
                         ),
                       ],
                       const SizedBox(width: 16.0),

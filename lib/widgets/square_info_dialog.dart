@@ -270,7 +270,11 @@ class _SquareInfoDialogState extends State<SquareInfoDialog> {
                   Container(
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Color(0xFFcda5e1),
+                      gradient: LinearGradient(
+                        colors: [Color(0xFF86b9e1), Color(0xFFcda5e1)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(16),
                       ),

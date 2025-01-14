@@ -24,7 +24,7 @@ class _TokenomicsMobileState extends State<TokenomicsMobile> {
         width: MediaQuery.of(context).size.width * 0.9,
         height: MediaQuery.of(context).size.height * 0.75,
         decoration: BoxDecoration(
-          color: const Color(0xFF404F89),
+          color: const Color(0xFF86b9e1),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: const Color(0xFF704214),
