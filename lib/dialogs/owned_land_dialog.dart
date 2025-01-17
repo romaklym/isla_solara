@@ -21,7 +21,6 @@ class OwnedDialog extends StatefulWidget {
 
 class _OwnedDialogState extends State<OwnedDialog> {
   final formatter = NumberFormat("#,##0.00", "en_US");
-
   Map<String, dynamic>? ownedLot;
 
   @override
@@ -43,11 +42,32 @@ class _OwnedDialogState extends State<OwnedDialog> {
 
   Future<void> _findOwnedLot() async {
     try {
-      // Query Firestore for a lot where `current_owner` matches the user's public key
+      // First check if we already have the owned lot in cache
+      Map<String, dynamic>? cachedLot;
+      int? cachedLotId;
+
+      // Check cache first
+      for (var entry in widget.cachedIslandData.entries) {
+        if (entry.value['current_owner'] == widget.publicKey) {
+          cachedLotId = entry.key;
+          cachedLot = entry.value;
+          break;
+        }
+      }
+
+      // If found in cache, use it
+      if (cachedLot != null && cachedLotId != null) {
+        setState(() {
+          ownedLot = {"id": cachedLotId, ...?cachedLot};
+        });
+        return;
+      }
+
+      // If not in cache, query Firestore once
       final snapshot = await FirebaseFirestore.instance
           .collection('islands')
           .where('current_owner', isEqualTo: widget.publicKey)
-          .limit(1) // Limit to the first matching document
+          .limit(1)
           .get();
 
       if (snapshot.docs.isNotEmpty) {
@@ -55,20 +75,22 @@ class _OwnedDialogState extends State<OwnedDialog> {
         final data = doc.data();
         final id = int.tryParse(doc.id) ?? 0;
 
-        // Cache the owned lot to avoid redundant queries
+        // Update cache
         widget.cachedIslandData[id] = data;
 
         setState(() {
           ownedLot = {"id": id, ...data};
         });
       } else {
-        // No owned lot found
         setState(() {
           ownedLot = null;
         });
       }
     } catch (e) {
       print("Error finding owned lot: $e");
+      setState(() {
+        ownedLot = null;
+      });
     }
   }
 

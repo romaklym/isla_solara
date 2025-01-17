@@ -18,26 +18,69 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="Own the $LAND. Earn the Rewards.">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="taxhavistan">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#86b9e1">
+  <meta name="apple-mobile-web-app-title" content="Isla Solara">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>taxhavistan</title>
+  <title>Isla Solara</title>
   <link rel="manifest" href="manifest.json">
   <style>
     html, body {
       overscroll-behavior-x: none;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    .loading-image {
+      height: 40vh;
+    }
+    
+    .loading-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+      background-image: url('assets/positioned.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    /* Remove Flutter's default loading indicator */
+    .flutter-loader {
+      display: none;
     }
   </style>
 </head>
 <body>
+  <div id="loading-container" class="loading-container">
+    <img src="assets/island_loading.gif" class="loading-image" alt="Loading...">
+  </div>
+  <script>
+    window.addEventListener('load', function() {
+      var loadingContainer = document.getElementById('loading-container');
+      if (loadingContainer) {
+        // Remove the loading screen once the app is loaded
+        window.addEventListener('flutter-first-frame', function() {
+          loadingContainer.remove();
+        });
+      }
+    });
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
