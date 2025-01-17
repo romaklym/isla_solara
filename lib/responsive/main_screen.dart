@@ -21,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/back.png',
+              'assets/positioned.png',
               fit: BoxFit.cover, // Cover entire container
             ),
           ),
